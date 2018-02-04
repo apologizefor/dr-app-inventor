@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated%}
+    <div>
+      <form method="post" id="aia-form" name="Select your aia file" enctype="multipart/form-data">{% csrf_token %}
+          {{ form.as_p }}
+          <br>
+          <input class="btn btn-primary" type="submit" value = "Upload file"/>
+      </form>
+    </div>
+{% else %}
+{% endif %}
+
+{% endblock %}
+  </html>

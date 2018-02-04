@@ -1,0 +1,9 @@
+*.pyc
+/appDrAi/__pycache__
+db.sqlite3
+pip-selfcheck.json
+saved_projects
+.Python
+.DS_Store
+rnom.terminal
+runserver.sh

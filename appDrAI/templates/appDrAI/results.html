@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  tr{
+    text-align: center;
+    border: 2px solid black;
+
+  }
+  td{
+    text-align: center;
+    border: 2px solid black;
+  }
+  th{
+    text-align: center;
+    border: 2px solid black;
+  }
+</style>
+
+<table align="center" style="width: 30%;">
+  <tr><th>{{ name }}</th><tr>
+  <tr>
+    <th>CONCEPT</th>
+    <th>RESULT</th>
+  </tr>
+  <tr>
+    <td>SCREENS</td>
+    <td>{{ scr }}</td>
+  </tr>
+  <tr>
+    <td><a href="./bad-naming">BAD NAMING</td>
+    <td>{{ naming }} %</td>
+  </tr>
+  <tr>
+    <td>IF...THEN</td>
+    <td>{{ if }}</td>
+  </tr>
+  <tr>
+    <td>ELSE</td>
+    <td>{{ else }}</td>
+  </tr>
+  <tr>
+    <td>ELSEIF</td>
+    <td>{{ elseif }}</td>
+  </tr>
+  <tr>
+    <td>EVENTS</td>
+    <td>{{ events }}</td>
+  </tr>
+  <tr>
+    <td>WHILE</td>
+    <td>{{ while }}</td>
+  </tr>
+  <tr>
+    <td>FOR RANGE</td>
+    <td>{{ for_range }}</td>
+  </tr>
+  <tr>
+    <td>FOR LIST</td>
+    <td>{{ for_list }}</td>
+  </tr>
+  <tr>
+    <td>PROCEDURES</td>
+    <td>{{ proc }}</td>
+  </tr>
+  <tr>
+    <td>LISTS</td>
+    <td>{{ lists }}</td>
+  </tr>
+</table>
+
+{% endblock %}
