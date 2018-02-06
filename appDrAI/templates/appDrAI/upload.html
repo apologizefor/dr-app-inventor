@@ -2,16 +2,25 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated%}
-    <div>
-      <form method="post" id="aia-form" name="Select your aia file" enctype="multipart/form-data">{% csrf_token %}
-          {{ form.as_p }}
-          <br>
-          <input class="btn btn-primary" type="submit" value = "Upload file"/>
-      </form>
-    </div>
-{% else %}
-{% endif %}
+<!--
+<div class="input-group">
+  <div class="custom-file">
+-->
+      <form method="post" id="aia-form" name="Select your aia file" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary" type="submit">Upload</button>
+<!--BORRAR form.as_p
+        {{ form.aia_file }}
+    <label <class="custom-file-label" for="{{ form.aia_file.id_for_label }}">Choose file</label>
+
+  </div>
+  <div class="input-group-append">
+
+    <button class="btn btn-outline-secondary" type="submit">Upload</button>
+  </div>
+-->
+  </form>
+</div>
 
 {% endblock %}
-  </html>

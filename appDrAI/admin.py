@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DataModel
+from .models import *
 from .forms import DataForm
 
 class AdminDataModel(admin.ModelAdmin):
@@ -11,3 +11,4 @@ class AdminDataModel(admin.ModelAdmin):
 
 
 admin.site.register(DataModel, AdminDataModel)
+admin.site.register(UserModel)

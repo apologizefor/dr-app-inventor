@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if proj_data%}
+{% for element in proj_data %}
+<p><a href="/profile/projects/{{element.pk}}">{{ element.name }}</a></p>
+{% endfor %}
+{% else %}
+<p>There is no projects yet</p>
+{% endif %}
+{% endblock %}

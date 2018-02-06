@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table align="center" style="width: 50%;">
+  <tr>
+    <td>NAME</td>
+    <td>{{ name }}</td>
+  </tr>
+  <tr>
+    <td>AI USER</td>
+    <td>{{ ainame }}</td>
+  </tr>
+  <tr>
+    <td>EMAIL</td>
+    <td>{{ email }}</td>
+  </tr>
+  <tr>
+    <td>PROJECTS</td>
+    <td><a href="./projects">Click to see projects</a></td>
+  </tr>
+</table>
+
+{% endblock %}
