@@ -14,8 +14,7 @@ class AiaForm(forms.ModelForm):
 class DataForm(forms.ModelForm):
     class Meta:
         model = DataModel
-        fields = ('name','screens','naming','cond_if','cond_else','cond_elseif',
-                'events','loop_while','loop_range','loop_list','proc','lists','author')
+        fields = ('name','screens','naming','cond','events','loop','proc','lists','data_pers','author')
 
 class UserForm(UserCreationForm):
     first_name = forms.CharField()

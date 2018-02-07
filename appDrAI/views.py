@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 def main_view(request):
+    #return render(request, 'drScratch/Dr. Scratch.html',{})
     return render(request, 'appDrAI/main.html',{})
 
 def profile_view(request):
@@ -37,6 +38,7 @@ def projects_views(request):
 def file_form_page(request):
     if request.method == "GET":
         form = AiaForm()
+        #return render(request, 'drScratch/Dr. Scratch.html',{})
         return render(request, 'appDrAI/upload.html',{'form': form})
     if request.method == "POST":
         form = AiaForm(request.POST, request.FILES)
@@ -44,14 +46,14 @@ def file_form_page(request):
             f = form.cleaned_data['aia_file']
             ext = str(f).split('.')[1]
             if ext == "aia":
-                scr, naming, cond, ev, loop, proc, lists = (extractData(request.user.username,f))
-                data = {"scr": scr, "naming":naming*100, 'if':cond['if'],
-                        'else':cond['else'], 'elseif':cond['elseif'],
-                        'events':ev, 'while':loop['while'], 'for_range':loop['range'],
-                        'for_list':loop['list'],'proc':proc,'lists':lists,}
+                scr, naming, cond, ev, loop, proc, lists, dp = (extractData(request.user.username,f))
+                data = {"scr": scr, "naming":naming, 'conditional':cond,
+                        'events':ev, 'loop':loop,'proc':proc,'lists':lists,
+                        'dp':dp}
                 project = DataModel()
                 project.saveData(data,f.name,request.user.id)
                 return redirect('results',pk=project.id_number)
+    #return render(request, 'drScratch/Dr. Scratch.html',{})
     return render(request, 'appDrAI/upload.html',{'form': form})
 
 
@@ -90,8 +92,12 @@ def logout_page(request):
 
 def showResults(request,pk):
     project = get_object_or_404(DataModel, pk=pk)
-    data = project.loadData()
-    return render(request, 'appDrAI/results.html',data)
+    data = project.loadProject()
+    total = 0;
+    for key in data:
+        total += data[key]
+    context = {'data':data,'result':total,'max':len(data)*3}
+    return render(request, 'drScratch/Dr.Scratch_show_dash.html',context)
 
 def showBN(request,pk):
     project = get_object_or_404(DataModel, pk=pk)

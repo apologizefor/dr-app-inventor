@@ -1,0 +1,305 @@
+{%load staticfiles%}
+<!-- saved from url=(0039)http://www.drscratch.org/show_dashboard -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="description" content="Analyze your Scratch projects to assess your Computational Thinking skills">
+    <meta name="keywords" content="Stamp, Startup, Multipurpose, Bootstrap, Landing page, Template, Registration, Landing">
+    <meta name="author" content="Programamos URJC Libresoft FECyT">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script id="twitter-wjs" src="{% static 'css/Dr.Scratch_show_dash_files/widgets.js' %}"></script><script async="" src="{% static 'css/Dr.Scratch_show_dash_files/analytics.js' %}"></script><script src="{% static 'css/Dr.Scratch_show_dash_files/jquery.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/bootstrap-tour.css' %}">
+    <script src="{% static 'css/Dr.Scratch_show_dash_files/bootstrap.min.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_show_dash_files/bootstrap-tour.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_show_dash_files/googleAnalytics.js' %}"></script>
+
+    <!-- SITE TITLE -->
+    <title>Dr. Scratch</title>
+
+
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/style.css' %}">
+    <!-- =========================
+     FAV AND TOUCH ICONS AND FONT
+    ============================== -->
+    <link rel="icon" href="http://www.drscratch.org/static/app/images/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/icons.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/css_002.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/css.css' %}">
+
+    <!-- =========================
+     STYLESHEETS
+    ============================== -->
+    <!-- BOOTSTRAP AND ANIMATION -->
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/animate.css' %}">
+
+    <!-- CAROUSEL AND LIGHTBOX -->
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/owl_002.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/nivo-lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/default.css' %}">
+
+    <!-- CUSTOM STYLESHEETS -->
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/developing.css' %}">
+    <!-- RESPONSIVE FIXES -->
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/responsive.css' %}">
+
+    <!-- DEFAULT COLOR/ CURRENTLY USING -->
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/red.css' %}">
+<script>
+    // Instance the tour
+    $(document).ready(function(){
+        $("#tour").click(function(){
+    var tour = new Tour({
+      storage: false,
+      backdrop: true,
+      steps: [
+      {
+        element: "#stepone",
+        title: "Puntuación",
+        content: "Esta sección muestra la puntuación total."
+      },
+      {
+        element: "#steptwo",
+        title: "Malos hábitos en programación",
+        content:"Si corriges ahora tus malos hábitos en programación, evitarás problemasen el futuro."
+      },
+      {
+        element: "#stepthree",
+        title: "Diploma",
+        content:"¡Descarga tu diploma!"
+      },
+      {
+        element: "#stepfour",
+        title: "Puntuación en detalle:",
+        content: "Ésta es la puntuación de cada habilidad de programación y enlaces a páginas que pueden ayudarte a mejorarla.",
+        placement:'left'
+      }
+    ]});
+     tour.init();
+    // Initialize the tour
+
+
+            tour.start();
+
+        });
+});
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.dropdown').popover();
+    });
+    </script>
+    <script>
+      window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+    </script>
+    <script>
+    $(document).ready(function(){
+
+    var filename = "/";
+    var level = "{{result}}/{{max}}";
+    var list =[filename,level];
+    $("#certificate").val(list.toString());
+    });
+
+    </script>
+<script type="text/javascript" charset="utf-8" async="" src="{% static 'css/Dr.Scratch_show_dash_files/button.5f64a1a5864e1229f84c8defd65341b4.js' %}"></script></head>
+<body>
+    <div id="wrap">
+    <div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top  sticky-navigation" role="navigation">
+        <div class="container">
+                    <!-- TOP BAR -->
+            <div class="navbar-collapse collapse" id="stamp-navigation">
+                    <!-- NAVIGATION LINK -->
+                <a class="navbar-brand" href="/">
+                    <img src="http://www.drscratch.org/static/app/images/logo_main.png" alt="">
+                </a>
+                <ul class="nav navbar-nav navbar-right main-navigation ">
+                        <li class="navbar-brand"><a class="navbar-brand pull-right" href="https://twitter.com/DrScratchTool"><span class="icon-social-twitter colored-text"></span></a></li>
+                        <li class="navbar-brand"><a class="navbar-brand pull-right" href="mailto:team@drscratch.org"><span class="icon-basic-mail colored-text"></span></a></li>
+                        <li class="navbar-brand"><a class="btn btn-default" id="tour">AYUDA</a></li>
+                        <li class="navbar-brand"><a class="navbar-brand pull-right">Dr. App Inventor(Versión Beta)</a></li>
+                      </ul>
+            </div>
+                    <!-- /END TOP BAR -->
+        </div>
+                <!-- /END CONTAINER -->
+    </div>
+    <div class="container">
+            <!-- /END STICKY NAVIGATION -->
+    <!-- JUMBOTRON -->
+            <section id="blackboard" class="services col-md-5">
+                <div class="devpanel">
+                    <div class="panel panel-success" id="devpanel">
+                        <div class="panel-heading" id="stepone">
+                          {%if result <= 8 %}
+                            <img src="http://www.drscratch.org/static/app/images/ferret.png" class="img-responsive col-md-4">
+                          {%elif result <= 16%}
+                          <img src="{% static 'css/Dr.Scratch_show_dash_files/monkey.png'%}" class="img-responsive col-md-4">
+                          {%else%}
+                          <img src="http://www.drscratch.org/static/app/images/cat.png" class="img-responsive col-md-4">
+                          {%endif%}
+                            <h2 id="score" class="panel-title dark-text"><strong>Puntuación:</strong> {{result}}/{{max}}
+                            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="{% static 'css/Dr.Scratch_show_dash_files/tweet_button.02a1dca8703a0f5962a962619634825b.en.html'%}" style="position: static; visibility: visible; width: 61px; height: 20px;"></iframe></h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="container col-md-12">
+                            <h3 class="text-left dark-text">El nivel de tu proyecto es...
+                              {%if result <= 8 %}
+                              <strong>¡BÁSICO! </strong></h3><p class="text-left dark-text"> Estás al principio de una gran aventura. ¡Continúa así!</p>
+                              {%elif result <= 16 %}
+                              <strong>¡MEDIO! </strong></h3><p class="text-left dark-text"> Estás haciendo un gran trabajo. ¡Sigue así!</p>
+                              {%else%}
+                              <strong>¡ALTO! </strong></h3><p class="text-left dark-text"> ¡¡¡Eres el master del universo!!!</p>
+                              {%endif%}
+
+
+                           <a href="https://scratch.mit.edu/projects/196709703/" target="_blank"><span class="glyphicon glyphicon-hand-right"></span>Vuelve a tu proyecto Scratch</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- HOW TO IMPROVE -->
+            <div class="improve">
+                <div class="panel panel-success" id="improve">
+                    <div id="steptwo">
+
+                    <div class="panel-heading">
+                        <h2 id="score" class="panel-title dark-text">Mejores prácticas</h2>
+                    </div>
+                    <div class="panel-body text-left typ">
+                         <a class="glyphicon glyphicon-exclamation-sign"></a><a class="dropdown" data-toggle="popover" title="" data-content="
+
+
+
+
+
+
+
+                        Sprite2(costume)
+
+
+
+
+
+
+
+                        " data-trigger="hover" href="http://www.drscratch.org/learn/attrInit" data-original-title="Atributos no inicializados correctamente"> 1 atributos no inicializados correctamente.
+
+</a><br>
+                        <a class="glyphicon glyphicon-pencil"> </a><a class="dropdown" data-toggle="popover" title="" data-content="
+                                    Sprite1.
+
+                                    Sprite2.
+                                   " data-trigger="hover" href="http://www.drscratch.org/learn/spriteNaming" data-original-title="Nombres inadecuados"> 2 nombres inadecuados.
+                       </a><br>
+                 </div>
+                </div>
+                </div>
+
+            </div>
+
+            <div class="improve">
+                <div class="panel panel-success" id="improve">
+                    <div id="stepthree">
+
+                        <div class="panel-heading">
+                            <h2 id="score" class="panel-title dark-text">Certificado del proyecto</h2>
+                        </div>
+                        <div class="panel-success">
+                            <h5>https://scratch.mit.edu/projects/196709703/ <form name="form" class="project-form" enctype="multipart/form-data" method="post" action="http://www.drscratch.org/download_certificate">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="ETfgup9CaZTvTQXlZ6ppPChFCsTI9J79">
+                            <button value="https://scratch.mit.edu/projects/196709703/,9/21" name="certificate" type="submit" id="certificate">Descargar</button>
+                          </form></h5>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            </section>
+
+
+  <!-- Score in detail -->
+    <div class="col-md-7">
+        <section id="dashboard">
+            <div class="container-fluid" id="stepfour">
+                <div class="row marketing">
+                    <div class="jumbotron">
+                        <div class="table-responsive">
+                            <table class="table tablesorter">
+                                <thead>
+                                    <tr>
+                                    <th><h4>Mejora tu nivel</h4></th>
+                                    <th class="col-md-5"><h4>Nivel</h4></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+{% for key, value in data.items %}
+                                <tr>
+                                  <td>
+                                    <img src="{% static 'css/Dr.Scratch_show_dash_files/little_bulb.png'%}" alt="">
+                                    {% if key == "lists"%}LISTS{% elif key == "dp"%}DATA PERSISTANCE{% elif key == "naming"%}NAMING
+                                    {% elif key == "conditional"%}CONDITIONAL{% elif key == "proc"%}PROCEDURES{% elif key == "events"%}EVENTS
+                                    {% elif key == "loop"%}LOOP{% elif key == "scr"%}SCREENS
+                                    {%endif%}
+
+                                  </td>
+                                  <td>
+                                    <div class="progress">
+                                      {%if value == 0 %}
+                                      <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="3" style="width: 0%">
+                                          <span><strong>{{value}}/3</strong></span>
+                                      </div>
+                                      {%elif value == 1 %}
+                                      <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="3" style="width: 33%">
+                                          <span><strong>{{value}}/3</strong></span>
+                                      </div>
+                                      {%elif value == 2 %}
+                                      <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="3" style="width: 66%">
+                                          <span><strong>{{value}}/3</strong></span>
+                                      </div>
+                                      {%elif value == 3 %}
+                                      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="3" style="width: 100%">
+                                          <span><strong>{{value}}/3</strong></span>
+                                      </div>
+                                    <div>
+
+                                       </div></div></td>
+
+{%endif%}
+{% endfor %}
+
+
+                                </tbody>
+                             </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+        </section>
+     </div>
+</div>
+
+    <footer class="footer grey-bg">
+        <div class="container">
+               ©2014 Dr. Scratch está implementado con <a href="https://github.com/ucsb-cs-education/hairball" class="dark-text">Hairball</a>
+
+                <!-- SOCIAL ICONS -->
+                <ul class="social-icons">
+                    <li><a href="https://twitter.com/drscratchtool"><span class="icon-social-twitter transparent-text-dark"></span></a>
+                    </li>
+                    <li><a href="http://www.drscratch.org/show_dashboard"><span class="icon-social-github transparent-text-dark"></span></a>
+                    </li>
+
+                </ul>
+        </div>
+    </footer>
+
+
+
+
+</div><iframe scrolling="no" frameborder="0" allowtransparency="true" src="{% static 'css/Dr.Scratch_show_dash_files/widget_iframe.02a1dca8703a0f5962a962619634825b.html'%}" style="display: none;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="{% static 'css/Dr.Scratch_show_dash_files/saved_resource.html'%}"></iframe></body></html>

@@ -1,0 +1,1378 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<!-- saved from url=(0025)http://www.drscratch.org/ -->
+<html class="nivo-lightbox-notouch" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="description" content="Analyze your Scratch projects to assess your Computational Thinking skills">
+    <meta name="keywords" content="Stamp, Startup, Multipurpose, Bootstrap, Landing page, Template, Registration, Landing">
+    <meta name="author" content="Programamos URJC Libresoft FECyT">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- SITE TITLE -->
+    <title>Dr. App Inventor</title>
+
+
+    <link rel="{% static 'css/Dr. Scratch_files/style.css' %}">
+    <!-- =========================
+     FAV AND TOUCH ICONS AND FONT
+    ============================== -->
+    <link rel="icon" href="http://www.drscratch.org/static/app/images/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/icons.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr. Scratch_files/css_002.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr. Scratch_files/css.css' %}">
+    <!-- =========================
+     STYLESHEETS
+    ============================== -->
+    <!-- BOOTSTRAP AND ANIMATION -->
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/bootstrap-main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/animate.css' %}">
+
+    <!-- CAROUSEL AND LIGHTBOX -->
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/owl_002.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/nivo-lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/default.css' %}">
+
+    <!-- CUSTOM STYLESHEETS -->
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/styles.css' %}">
+
+
+    <!-- RESPONSIVE FIXES -->
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/responsive.css' %}">
+
+    <!-- DEFAULT COLOR/ CURRENTLY USING -->
+    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/red.css' %}">
+</head>
+
+<body>
+    <div id="mywrapper">
+    <!-- =========================
+     PRE LOADER
+    ============================== -->
+    <div style="display: none;" class="preloader">
+        <div style="display: none;" class="status">
+            &nbsp;
+        </div>
+    </div>
+
+    <!-- =========================
+     SECTION: HOME / HEADER
+    ============================== -->
+    <header id="home" style="background-position: 50% 40.5px;" class="header" data-stellar-background-ratio="0.3">
+        <!-- COLOR OVER IMAGE -->
+        <div class="overlay-layer">
+            <!-- STICKY NAVIGATION -->
+            <div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top  sticky-navigation" role="navigation">
+                <div class="container">
+                    <!-- TOP BAR -->
+                    <div class="navbar-collapse collapse" id="stamp-navigation">
+                    <!-- NAVIGATION LINK -->
+                      <a class="navbar-brand" href="/">
+                        <img src="{% static 'css/Dr. Scratch_files/logo_main.png' %}" alt="">
+                      </a>
+                      <ul class="nav navbar-nav navbar-left main-navigation small-text">
+                        <li class="navbar-brand"><a href="/#section1"><em>¿Por qué?</em></a></li>
+                        <li class="navbar-brand"><a href="/#section2"><em>¿Cómo?</em></a></li>
+                        <li class="navbar-brand"><a href="/#section3"><em>Próximamente</em></a></li>
+                        <li class="navbar-brand"><a href="/#section4"><em>Contacto</em></a></li>
+
+                        <li class="navbar-brand"><a href="/"><em class="colored-text">Organizaciones</em></a></li>
+
+                      </ul>
+                  </div>
+                  <!-- /END TOP BAR -->
+              </div>
+              <!-- /END CONTAINER -->
+          </div>
+          <!-- /END STICKY NAVIGATION -->
+
+
+            <!-- CONTAINER -->
+            <div class="container">
+
+        <!-- ONLY LOGO ON HEADER -->
+                <div class="row">
+                    <div class="col-md-6 text-left">
+
+                        <!-- HEADING AND BUTTONS -->
+                        <div class="intro-section">
+
+                            <!-- WELCOM MESSAGE -->
+                            <h1 class="intro white-text">Analiza tus proyectos de App Inventor</h1>
+
+                            <h4 align="justify" class="transparent-text"><strong>Bienvenido a la Web de Dr. App Inventor, es una aplicación que evalúa proyectos App Inventor en relación a varios aspectos del pensamiento computacional. Este analizador es una herramienta muy útil tanto para evaluar tus proyectos App Inventor como los de tus estudiantes. </strong></h4>
+
+                            <!-- BUTTON -->
+                            <div class="button hidden-xs">
+                                <a href="/#section1" class="btn btn-primary secondary-button">Aprende más</a>
+                            </div>
+                            <!-- /END BUTTON -->
+
+                        </div>
+
+                    </div>
+
+                    <div class="container">
+                        <br><br>
+                    <div class="col-md-5">
+
+                        <!-- VERTICAL PROJECT FORM -->
+
+                            <div class="vertical-project-form">
+
+                                <h5 class="dark-text form-heading"><strong>Sube tu proyecto de App Inventor para analizarlo</strong></h5>
+
+                                <form name="form" class="project-form" enctype="multipart/form-data" method="post" action="/results/">
+                                {% csrf_token %}
+                                {{ form.aia_file }}
+
+
+                                    Descarga tu <span class="colored-text"><a data-toggle="modal" href="http://www.drscratch.org/#modalProject">proyecto</a></span> en tu ordenador y podrás analizarlo aquí:
+                                    <div class="bootstrap-filestyle input-group">
+                                      {{ form.aia_file }}
+                                      <span class="group-span-filestyle input-group-btn" tabindex="0"><label for="{{ form.aia_file.id_for_label }}" class="btn btn-default  btn-file"><span class="glyphicon glyphicon-folder-open"></span>
+                                      <span class="buttonText">Elige Proyecto</span></label></span></div>
+                                    <button id="upload" name="_upload" type="submit" class="btn btn-primary standard-button">Analiza mi proyecto</button>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="ETfgup9CaZTvTQXlZ6ppPChFCsTI9J79">
+
+                                </form>
+
+                                <!-- FORM SUBMIT SUCCESS / ERROR MESSAGES -->
+                                <p class="file-error dark-text small-text">
+                                ¡Error! Por favor elige un fichero .sb o .sb2 o pon una url</p>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    <!-- =========================
+     SECTION: CLIENTS LOGOs
+    ============================== -->
+    <section id="section6" class="services grey-bg">
+    <div class="clients white-bg">
+        <ul class="client-logos">
+            <li>
+                <a href="http://programamos.es/">
+                <img src="{% static 'css/Dr. Scratch_files/logoProgramamos.png' %}" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="http://www.urjc.es/">
+                <img src="{% static 'css/Dr. Scratch_files/logoURJC.jpg' %}" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="http://libresoft.es/">
+                <img src="{% static 'css/Dr. Scratch_files/logoLibresoft.jpeg' %}" alt="">
+                </a>
+            </li>
+
+            <li>
+                <a href="http://www.fecyt.es/">
+                <img src="{% static 'css/Dr. Scratch_files/logoFECYT.jpg' %}" alt="">
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    </section>
+    </header>
+    <!-- =========================
+     SECTION: Why
+    ============================== -->
+    <section id="section1" class="services grey-bg">
+
+        <div class="container">
+            <!-- SECTION HEADER -->
+            <div class="section-header">
+
+                <div class="small-text-medium uppercase colored-text">
+                    ¿Por qué?
+                </div>
+                <h2 class="dark-text"><strong>Por qué  </strong>te encantará Dr. App Inventor</h2>
+                <div class="colored-line">
+                </div>
+                <div class="sub-heading">
+                    <h3><em>Analiza tus proyectos de App Inventor</em></h3>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- SINGLE SERVICE -->
+                <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="col-md-4 wow fadeInLeft animated" data-wow-offset="10" data-wow-duration="1.75s">
+                    <div class="single-service border-bottom-hover">
+                        <div class="service-icon colored-text">
+                            <span class="icon-social-dribbble-circle"></span>
+                        </div>
+                        <h3 class="colored-text">Fácil &amp; Divertido</h3>
+                        <p>
+                            </p><h4>Tus estudiantes pueden aprender fácilmente cómo mejorar sus habilidades de programación de una forma divertida.</h4>
+                        <p></p>
+                    </div>
+                </div>
+
+                <!-- SINGLE SERVICE -->
+                <div style="visibility: hidden; animation-duration: 1s; animation-name: none;" class="col-md-4 wow flipInY animated" data-wow-offset="10" data-wow-duration="1s">
+                    <div class="single-service border-bottom-hover">
+                        <div class="service-icon colored-text">
+                            <span class="icon-ecommerce-graph3"></span>
+                        </div>
+                        <h3 class="colored-text">Mejora tus habilidades</h3>
+                        <p>
+                            </p><h4>Dr. App Inventor ofrece realimentación en aspectos relacionados con el Pensamiento Computacional ayudándote a mejorarlos.</h4>
+                        <p></p>
+                    </div>
+                </div>
+
+                <!-- SINGLE SERVICE -->
+                <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="col-md-4 wow fadeInRight animated" data-wow-offset="10" data-wow-duration="1.75s">
+                    <div class="single-service border-bottom-hover">
+                        <div class="service-icon colored-text">
+                            <span class="icon-software-pen"></span>
+                        </div>
+                        <h3 class="colored-text">Mejorando constantemente</h3>
+                        <p>
+                           </p><h4>Intentamos mejorar continuamente, por lo que nos gustaría escuchar tus opiniones.</h4>
+                        <p></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+            </section>
+
+
+    <!-- =========================
+     SECTION: HOW (BRIEF LEFT)
+    ============================== -->
+    <section id="section2" class="brief white-bg-border text-left">
+        <div class="container">
+            <div class="row">
+
+                <!-- BRIEF IMAGE -->
+                <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="col-md-6 pull-right wow fadeInLeft animated" data-wow-offset="20" data-wow-duration="1.75s">
+
+     <div class="brief-image-right">
+
+                <div class="text-left dark-text">
+                    <br><br>
+                    <h3></h3>
+                    <br><br>
+                </div>
+                        <div class="js-video [vimeo, widescreen]">
+
+                            <iframe src="{% static 'css/Dr. Scratch_files/114430745.html' %}" width="500" height="333" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BRIEF HEADING -->
+                <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="col-md-6 content-section pull-left wow fadeInRight animated" data-wow-offset="20" data-wow-duration="1.75s">
+                    <div class="small-text-medium uppercase colored-text">
+                        Cómo
+                    </div>
+                    <h2 class="text-left dark-text"><strong>Cómo  </strong>funciona </h2>
+                    <div class="colored-line-left">
+                    </div>
+                    <p class="text-left">
+                        </p><p><em>Hay dos opciones para analizar un proyecto de App Inventor con Dr. App Inventor</em></p>
+                        <img src="{% static 'css/Dr. Scratch_files/proyecto.png' %}">
+                    <p align="justify">
+                        Puedes subir un fichero de extensión sb2 o utilizar la url que App Inventor facilita sin necesidad de bajar previamente el proyecto a tu ordenador. Mediante el análisis de Dr. App Inventor, puedes conocer fácilmente tu Nivel de Pensamiento Computacional.
+                    </p>
+                    <p></p>
+                    <!-- FEATURE LIST -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <ul class="feature-list text-left">
+                              <li><p>
+                                <span class="icon-basic-clessidre colored-text"></span>
+                                Es increiblemente fácil de usar, tanto si eres principiante como si eres un programador experto.
+                              </p></li>
+                              <li><p>
+                                <span class="icon-basic-lightbulb colored-text"></span>
+                                Recibirás realimentación para mejorar tus habilidades de programación.
+                              </p><p></p></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                          <ul class="feature-list text-left">
+                            <li><p>
+                              <span class="icon-basic-home colored-text"></span>
+                              Puedes seguir mejorando tus habilidades como programador por ti mismo, incluso desde casa.
+                            </p><p></p></li>
+                            <li><p>
+                              <span class="icon-ecommerce-graph3 colored-text"></span>
+                              Puedes realizar un seguimiento de tu progreso a través de gráficos y estadísticas.
+                            </p><p></p></li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+     SECTION: BENEFITS
+    ============================== -->
+    <section id="section3" class="unique-features white-bg">
+        <div class="container">
+            <!-- SECTION HEADER -->
+            <div class="section-header">
+                <div class="small-text-medium uppercase colored-text">
+                    NUEVAS FUNCIONALIDADES
+                </div>
+                <h2 class="dark-text"><strong>Próximas </strong>Funcionalidades</h2>
+                <div class="colored-line">
+                </div>
+                <div class="sub-heading">
+                    <h3><em>Estamos trabajando en nuevas características que mejoren Dr. App Inventor</em></h3>
+                </div>
+            </div>
+
+            <!-- FIRST ROW OF FEATURES -->
+            <div class="row">
+                <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="col-md-4 wow fadeInRight animated" data-wow-duration="1.75s" data-wow-offset="40">
+
+
+                    <!-- SINGLE FEATURE -->
+                    <div class="feature">
+                        <div class="icon-container">
+                            <span class="icon-comment-alt colored-text"></span>
+                        </div>
+                        <div class="description text-left">
+                            <h4 class="dark-text">Web multilenguaje</h4>
+                            <div class="grey-line-short pull-left">
+                            </div>
+                            <p class="text-left">
+                               Sabemos que es más fácil entender cada detalle o indicación si la recibes en tu propio idioma, por ello traduciremos Dr. App Inventor para facilitar el aprendizaje del mayor número de personas posible.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SINGLE FEATURE -->
+                    <div class="feature">
+                        <div class="icon-container">
+                            <span class="icon-icon-desktop colored-text"></span>
+                        </div>
+                        <div class="description text-left">
+                            <h4 class="dark-text">Cuentas para profesores</h4>
+                            <div class="grey-line-short pull-left">
+                            </div>
+                            <p class="text-left">
+                                Los profesores podrán agrupar(y seguir) a sus estudiantes y realizar un seguimiento de sus progresos de una forma rápida y simple.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SINGLE FEATURE -->
+                    <div class="feature">
+                        <div class="icon-container">
+                            <span class="icon-cloud-alt colored-text"></span>
+                        </div>
+                        <div class="description text-left">
+                            <h4 class="dark-text">Plataforma en la nube</h4>
+                            <div class="grey-line-short pull-left">
+                            </div>
+                            <p class="text-left">
+                                Estamos migrando nuestros servidores a la Nube con el objetivo de ofrecer un mejor rendimiento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DrScratch's working to improve -->
+                <div class="col-md-4">
+                    <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="ipad-image wow bounceIn animated" data-wow-duration="1.75s" data-wow-offset="20">
+                        <img src="{% static 'css/Dr. Scratch_files/bulb.png' %}" alt="" height="406" width="360">
+                    </div>
+                </div>
+
+                <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="col-md-4 wow fadeInLeft animated" data-wow-duration="1.75s" data-wow-offset="20">
+
+                    <!-- SINGLE FEATURE -->
+                    <div class="feature">
+                        <div class="icon-container">
+                            <span class="icon-tools colored-text"></span>
+                        </div>
+                        <div class="description text-left">
+                            <h4 class="dark-text">Plug-ins</h4>
+                            <div class="grey-line-short pull-left">
+                            </div>
+                            <p class="text-left">
+                                Con los plugins de Dr. App Inventor para Chrome y Firefox, los estudiantes podrán analizar sus proyectos MIENTRAS programan en la web de App Inventor.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SINGLE FEATURE -->
+                    <div class="feature">
+                        <div class="icon-container">
+                            <span class="icon-star-alt colored-text"></span>
+                        </div>
+                        <div class="description text-left">
+                            <h4 class="dark-text">Gamificación</h4>
+                            <div class="grey-line-short pull-left">
+                            </div>
+                            <p class="text-left">
+                                Nos gustaría conseguir motivar la curiosidad de los estudiantes. ¿Tienes ideas interesantes para gamificar nuestra plataforma?
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SINGLE FEATURE -->
+                    <div class="feature">
+                        <div class="icon-container">
+                            <span class="icon-chat-alt colored-text"></span>
+                        </div>
+                        <div class="description text-left">
+                            <h4 class="dark-text">Red social</h4>
+                            <div class="grey-line-short pull-left">
+                            </div>
+                            <p class="text-left">
+                                Las funcionalidades de red social que incluiremos permitirán a los usuarios comunicarse entre ellos e intercambiar ideas y retos.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- =========================
+     SECTION: TEAM
+    ============================== -->
+    <section id="section4" class="team grey-bg">
+        <div class="container">
+            <!-- SECTION HEADER -->
+            <div class="section-header">
+                <div class="small-text-medium uppercase colored-text">
+                    Contacto
+                </div>
+                <h2 class="dark-text"><strong>Contacta </strong>con el equipo Dr. App Inventor</h2>
+                <div class="colored-line">
+                </div>
+                <div class="sub-heading">
+                    <h3><em>Nos gustaría conocer tu opinión y escuchar tus ideas</em></h3>
+                </div>
+            </div>
+
+
+        <!-- =========================
+     SECTION: CONTACT INFO
+    ============================== -->
+    <div class="contact-info white-bg">
+        <div class="container">
+
+            <!-- CONTACT INFO -->
+            <div class="row contact-links">
+
+                <div class="col-sm-4">
+                    <div class="icon-container">
+                        <span class="icon-basic-mail colored-text"></span>
+                    </div>
+                    <a href="mailto:drscratch@programamos.es" class="strong">team@drscratch.org</a>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="icon-container">
+                        <span class="icon-social-twitter colored-text"></span>
+                    </div>
+                    <a href="https://twitter.com/drscratchtool" class="strong">@DrScratchTool</a>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="icon-container">
+                        <span class="icon-basic-tablet colored-text"></span>
+                    </div>
+                    <a href="https://github.com/jemole/drScratch/issues" class="strong">GitHub(issues)</a>
+                </div>
+            </div>
+        </div>
+</div>
+        <div class="jumbotron">
+                <div>
+                <!-- Nos gustaría agradecer a mucha gente su colaboración y hemos incluido una sección especial para ello. -->
+                </div>
+                <div class="jumbotron">
+                    <a style="visibility: hidden; animation-duration: 2s; animation-name: none;" href="http://www.drscratch.org/statistics" class="btn btn-primary standard-button inpage-scroll wow fadeInRight animated col-md-3 col-md-offset-1" data-wow-duration="2s" data-wow-offset="10" type="button">Estadísticas</a>
+                    <a style="visibility: hidden; animation-duration: 2s; animation-name: none;" href="http://www.drscratch.org/collaborators" class="btn btn-primary standard-button inpage-scroll wow fadeInRight animated col-md-3 col-md-offset-1" data-wow-duration="2s" data-wow-offset="10" type="button">Colaboradores</a>
+                    <a style="visibility: hidden; animation-duration: 2s; animation-name: none;" href="http://www.drscratch.org/blog" class="btn btn-primary standard-button inpage-scroll wow fadeInRight animated col-md-3 col-md-offset-1" data-wow-duration="2s" data-wow-offset="10" type="button">Blog</a>
+                </div>
+
+        </div>
+    </div>
+    </section>
+
+
+    <!-- =========================
+     SECTION: CALL TO ACTION
+    ============================== -->
+    <section style="background-position: 40% 827.245px;" class="call-to-action" id="section7" data-stellar-background-ratio="0.1">
+        <div class="overlay-layer-2">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-8 col-md-offset-2">
+
+                        <div class="uppercase colored-text strong">
+                            ¿Eres usuario de Dr. App Inventor?
+                        </div>
+
+                        <h3 style="visibility: hidden; animation-duration: 2s; animation-name: none;" class="white-text strong wow fadeInLeft animated" data-wow-duration="2s" data-wow-offset="10">¡Pruébalo!</h3>
+
+                        <a style="visibility: hidden; animation-duration: 2s; animation-name: none;" href="http://www.drscratch.org/#home" class="btn btn-primary standard-button inpage-scroll wow fadeInRight animated" data-wow-duration="2s" data-wow-offset="10" type="button">Empezar</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer grey-bg">
+       ©2014 Dr. App Inventor está implementado con <a href="https://github.com/ucsb-cs-education/hairball" class="dark-text">Hairball</a>
+
+        <!-- SOCIAL ICONS -->
+        <ul class="social-icons">
+            <li><a href="https://twitter.com/drscratchtool"><span class="icon-social-twitter transparent-text-dark"></span></a>
+            </li>
+            <li><a href="http://www.drscratch.org/"><span class="icon-social-github transparent-text-dark"></span></a>
+            </li>
+
+        </ul>
+
+    </footer>
+    </div>
+
+    <!-- =========================
+            MODALS
+    ============================== -->
+
+    <!-- =========================
+            MODALS
+    ============================== -->
+
+     <!-- Modal Url -->
+    <div id="modalUrl" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close text-right" data-dismiss="modal">×</button>
+            <div class="small-text-medium uppercase colored-text">
+                ¿Qué es una url?
+            </div>
+            <h4 class="modal-title"><strong>¿Cómo puedo averiguar la url de mi proyecto en Scratch?</strong></h4>
+            <div class="colored-line"></div>
+          </div>
+          <div class="modal-body">
+            <img class="framed" src="{% static 'css/Dr. Scratch_files/url-es.png' %}">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Modal Project -->
+    <div id="modalProject" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close text-right" data-dismiss="modal">×</button>
+            <div class="small-text-medium uppercase colored-text">
+                ¡Quiero descargar mi proyecto de Scratch!
+            </div>
+            <h4 class="modal-title"><strong>¿Cómo puedo descargar mi proyecto de Scratch a mi ordenador?</strong></h4>
+            <div class="colored-line"></div>
+          </div>
+          <div class="modal-body">
+            <img class="framed" src="{% static 'css/Dr. Scratch_files/project-es.png' %}">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+   <!-- Modal Ask -->
+    <div id="modalAsk" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close text-right" data-dismiss="modal">×</button>
+            <div class="small-text-medium uppercase colored-text">
+                ¡Quiero descargar mi proyecto de Scratch!
+            </div>
+            <h4 class="modal-title"><strong>¿Cómo puedo descargar mi proyecto de Scratch a mi ordenador?</strong></h4>
+            <div class="colored-line"></div>
+          </div>
+          <div class="modal-body">
+            <img class="framed" src="{% static 'css/Dr. Scratch_files/project-es.png' %}">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal SignUp -->
+   <div id="modalSignUp" class="modal fade" role="dialog">
+     <div class="modal-dialog">
+
+       <!-- Modal content-->
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close text-right" data-dismiss="modal">×</button>
+           <div class="small-text-medium uppercase colored-text">
+               Regístrate
+           </div>
+         </div>
+         <div class="modal-body">
+           <div style="padding: 15px; padding-bottom: 10px;">
+             <form accept-charset="UTF-8" action="http://www.drscratch.org/sign_up_coder" method="post">
+               <input type="hidden" name="csrfmiddlewaretoken" value="ETfgup9CaZTvTQXlZ6ppPChFCsTI9J79">
+               <div class="tabbable">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+
+                      <h4 class="modal-title"><strong>Es fácil -y gratis- registrarte en Dr. Scratch</strong></h4>
+                      <div class="colored-line"></div>
+                        <div class="jumbotron">
+                        <div class="container">
+
+                      <div class="row">
+                          <label class="col-md-6 text-left control-label">Elige un nombre de usuario en Dr. Scratch</label>
+                          <label class="col-md-2 text-left control-label">
+                          <input type="text" name="username" id="username" placeholder="Nombre de usuario" class="placeholder"></label>
+                      </div>
+
+                      <div class="row">
+                           <label class="col-md-6 text-left control-label">Elige una contraseña</label>
+                           <label class="col-md-2 text-left control-label">
+                          <input type="password" name="password" id="password" placeholder="Contraseña" class="placeholder"></label>
+                      </div>
+
+                      <div class="row">
+                          <label class="col-md-6 text-left control-label">Confirma tu contraseña</label>
+                          <label class="col-md-1 text-left control-label">
+
+                            <input type="password" name="password_confirm" id="password_confirm" placeholder="Contraseña" class="placeholder"></label>
+
+                        </div>
+                    </div>
+                    </div>
+                      <h4 class="modal-title"><strong>Si eres menor de 16, introduce la dirección de correo de tus padres o tutores y les enviaremos un email para confirmar esta cuenta.</strong></h4>
+                      <div class="colored-line"></div>
+                        <div class="jumbotron">
+                        <div class="container">
+
+
+                            <div class="row">
+                                  <label class="col-md-6 text-left control-label" for="email">Dirección de email</label>
+                                  <label class="col-md-6 text-left control-label parents" for="email" style="display: none;">Dirección de email del padre/madre/tutor/a</label>
+                                  <input class="col-md-6 email" name="email" maxlength="100" type="text">
+
+                                  <span data-control="error" data-content="email-error" class="hovertext"><span class="arrow"></span><span class="text"></span></span>
+                            </div>
+
+                            <div class="row">
+                                  <label class="col-md-6 text-left control-label" for="email-confirm">Confirma tu dirección de email</label>
+                                  <input class="col-md-6 email-confirm" name="email_confirm" maxlength="100" type="text">
+
+                                  <span data-control="error" data-content="email-confirm-error" class="hovertext"><span class="arrow"></span><span class="text"></span></span>
+                            </div>
+                    </div>
+
+                  </div>
+
+
+                      <h4 class="modal-title" href="#" onmouseover="hidden_information()"><strong>Las respuestas a estas preguntas serán privadas.</strong></h4>
+                      <div class="colored-line" href="#"></div>
+                        <div class="jumbotron">
+                          <a href="http://www.drscratch.org/#" onmouseover="show_information()">¿Por qué pedimos esta información?</a>
+                          <div id="information" style="position: absolute; width: 500;top: 800px;left: 300px; z-index: 1; visibility:hidden">
+                                <div class="panel panel-danger">
+                                  <h4 class="modal-title">Cumpleaños: mes y año</h4>
+                                  <h6 class="modal-title">
+                                      Usamos esta información para calcular el rango de edad de las personas que utilizan Dr. Scratch, y confirmar que tu eres el propietario de la cuenta si nos contactas. Esto no será publico.
+                                  </h6>
+
+                                  <h4 class="modal-title">Género</h4>
+                                  <h6 class="modal-title">
+                                      Sirve para ayudar al equipo de diseño de Dr. Scratch a entender quien está usando Dr. Scratch, y nos proporciona información que nos ayuda a ampliar la participación. Esta información no es visible en tu cuenta, y solo es utilizada para describir la participación.
+                                  </h6>
+                              </div>
+                          </div>
+
+                      <div class="row" href="#" onmouseover="hidden_information()">
+                        <label class="col-md-6 text-left control-label" href="#" onmouseover="hidden_information()" for="birthmonth">Cumpleaños: mes y año</label>
+                        <select class="birthmonth" name="birthmonth" selectedindex="" required="">
+                        <option value="0">- Mes -</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                        </select>
+
+                        <select class="birthyear" name="birthyear">
+                        <option value="0">- Año -</option>
+                        <option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option><option value="1945">1945</option><option value="1944">1944</option><option value="1943">1943</option><option value="1942">1942</option><option value="1941">1941</option><option value="1940">1940</option><option value="1939">1939</option><option value="1938">1938</option><option value="1937">1937</option><option value="1936">1936</option><option value="1935">1935</option><option value="1934">1934</option><option value="1933">1933</option><option value="1932">1932</option><option value="1931">1931</option><option value="1930">1930</option><option value="1929">1929</option><option value="1928">1928</option><option value="1927">1927</option><option value="1926">1926</option><option value="1925">1925</option><option value="1924">1924</option><option value="1923">1923</option><option value="1922">1922</option><option value="1921">1921</option><option value="1920">1920</option><option value="1919">1919</option><option value="1918">1918</option><option value="1917">1917</option><option value="1916">1916</option><option value="1915">1915</option><option value="1914">1914</option><option value="1913">1913</option><option value="1912">1912</option><option value="1911">1911</option><option value="1910">1910</option><option value="1909">1909</option><option value="1908">1908</option><option value="1907">1907</option><option value="1906">1906</option><option value="1905">1905</option><option value="1904">1904</option><option value="1903">1903</option><option value="1902">1902</option><option value="1901">1901</option><option value="1900">1900</option><option value="1899">1899</option><option value="1898">1898</option><option value="1897">1897</option></select>
+
+                        <span data-control="error" data-content="birthday-error" class="hovertext"><span class="arrow"></span><span class="text"></span></span>
+                      </div>
+                      <div class="row" href="#" onmouseover="hidden_information()">
+                        <label class="col-md-2 text-left control-label" for="gender">Género</label>
+                           <input name="gender" value="male" type="radio">Hombre
+
+                           <input name="gender" value="female" type="radio">Mujer
+
+                           <input class="gender_other_radio" id="gender_other_radio" name="gender_other" value="" type="radio">
+
+                           <input class="gender_other_text" id="gender_other_text" name="gender_other" value=" " maxlength="20" type="text">
+
+                           <span data-control="error" data-content="gender-error" class="hovertext"><span class="arrow"></span><span class="text"></span></span>
+
+                      </div>
+                      <div class="row" href="#" onmouseover="hidden_information()">
+                        <label class="col-md-6 text-left control-label" for="country">País</label>
+                          <select class="col-md-6 text-left  country" name="country">
+                              <option value="0">- Pais -</option>
+
+                              <option value="United States">United States</option>
+
+                              <option value="Afghanistan">Afghanistan</option>
+
+                              <option value="Aland Islands">Aland Islands</option>
+
+                              <option value="Albania">Albania</option>
+
+                              <option value="Algeria">Algeria</option>
+
+                              <option value="American Samoa">American Samoa</option>
+
+                              <option value="Andorra">Andorra</option>
+
+                              <option value="Angola">Angola</option>
+
+                              <option value="Anguilla">Anguilla</option>
+
+                              <option value="Antarctica">Antarctica</option>
+
+                              <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+
+                              <option value="Argentina">Argentina</option>
+
+                              <option value="Armenia">Armenia</option>
+
+                              <option value="Aruba">Aruba</option>
+
+                              <option value="Australia">Australia</option>
+
+                              <option value="Austria">Austria</option>
+
+                              <option value="Azerbaijan">Azerbaijan</option>
+
+                              <option value="Bahamas">Bahamas</option>
+
+                              <option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba</option>
+
+                              <option value="Bahrain">Bahrain</option>
+
+                              <option value="Bangladesh">Bangladesh</option>
+
+                              <option value="Barbados">Barbados</option>
+
+                              <option value="Belarus">Belarus</option>
+
+                              <option value="Belgium">Belgium</option>
+
+                              <option value="Belize">Belize</option>
+
+                              <option value="Benin">Benin</option>
+
+                              <option value="Bermuda">Bermuda</option>
+
+                              <option value="Bhutan">Bhutan</option>
+
+                              <option value="Bolivia">Bolivia</option>
+
+                              <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+
+                              <option value="Botswana">Botswana</option>
+
+                              <option value="Bouvet Island">Bouvet Island</option>
+
+                              <option value="Brazil">Brazil</option>
+
+                              <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+
+                              <option value="Brunei">Brunei</option>
+
+                              <option value="Bulgaria">Bulgaria</option>
+
+                              <option value="Burkina Faso">Burkina Faso</option>
+
+                              <option value="Burundi">Burundi</option>
+
+                              <option value="Cambodia">Cambodia</option>
+
+                              <option value="Cameroon">Cameroon</option>
+
+                              <option value="Canada">Canada</option>
+
+                              <option value="Cape Verde">Cape Verde</option>
+
+                              <option value="Cayman Islands">Cayman Islands</option>
+
+                              <option value="Central African Republic">Central African Republic</option>
+
+                              <option value="Chad">Chad</option>
+
+                              <option value="Chile">Chile</option>
+
+                              <option value="China">China</option>
+
+                              <option value="Christmas Island">Christmas Island</option>
+
+                              <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+
+                              <option value="Colombia">Colombia</option>
+
+                              <option value="Comoros">Comoros</option>
+
+                              <option value="Congo">Congo</option>
+
+                              <option value="Congo, The Democratic Republic of the">Congo, The Democratic Republic of the</option>
+
+                              <option value="Cook Islands">Cook Islands</option>
+
+                              <option value="Costa Rica">Costa Rica</option>
+
+                              <option value="Cote d&#39;Ivoire">Cote d'Ivoire</option>
+
+                              <option value="Croatia">Croatia</option>
+
+                              <option value="Cuba">Cuba</option>
+
+                              <option value="Cyprus">Cyprus</option>
+
+                              <option value="Czech Republic">Czech Republic</option>
+
+                              <option value="Denmark">Denmark</option>
+
+                              <option value="Djibouti">Djibouti</option>
+
+                              <option value="Dominica">Dominica</option>
+
+                              <option value="Dominican Republic">Dominican Republic</option>
+
+                              <option value="Ecuador">Ecuador</option>
+
+                              <option value="Egypt">Egypt</option>
+
+                              <option value="El Salvador">El Salvador</option>
+
+                              <option value="Equatorial Guinea">Equatorial Guinea</option>
+
+                              <option value="Eritrea">Eritrea</option>
+
+                              <option value="Estonia">Estonia</option>
+
+                              <option value="Ethiopia">Ethiopia</option>
+
+                              <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+
+                              <option value="Faroe Islands">Faroe Islands</option>
+
+                              <option value="Fiji">Fiji</option>
+
+                              <option value="Finland">Finland</option>
+
+                              <option value="France">France</option>
+
+                              <option value="French Guiana">French Guiana</option>
+
+                              <option value="French Polynesia">French Polynesia</option>
+
+                              <option value="French Southern Territories">French Southern Territories</option>
+
+                              <option value="Gabon">Gabon</option>
+
+                              <option value="Gambia">Gambia</option>
+
+                              <option value="Georgia">Georgia</option>
+
+                              <option value="Germany">Germany</option>
+
+                              <option value="Ghana">Ghana</option>
+
+                              <option value="Gibraltar">Gibraltar</option>
+
+                              <option value="Greece">Greece</option>
+
+                              <option value="Greenland">Greenland</option>
+
+                              <option value="Grenada">Grenada</option>
+
+                              <option value="Guadeloupe">Guadeloupe</option>
+
+                              <option value="Guam">Guam</option>
+
+                              <option value="Guatemala">Guatemala</option>
+
+                              <option value="Guernsey">Guernsey</option>
+
+                              <option value="Guinea">Guinea</option>
+
+                              <option value="Guinea-Bissau">Guinea-Bissau</option>
+
+                              <option value="Guyana">Guyana</option>
+
+                              <option value="Haiti">Haiti</option>
+
+                              <option value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option>
+
+                              <option value="Vatican City">Vatican City</option>
+
+                              <option value="Honduras">Honduras</option>
+
+                              <option value="Hong Kong">Hong Kong</option>
+
+                              <option value="Hungary">Hungary</option>
+
+                              <option value="Iceland">Iceland</option>
+
+                              <option value="India">India</option>
+
+                              <option value="Indonesia">Indonesia</option>
+
+                              <option value="Iran">Iran</option>
+
+                              <option value="Iraq">Iraq</option>
+
+                              <option value="Ireland">Ireland</option>
+
+                              <option value="Isle of Man">Isle of Man</option>
+
+                              <option value="Israel">Israel</option>
+
+                              <option value="Italy">Italy</option>
+
+                              <option value="Jamaica">Jamaica</option>
+
+                              <option value="Japan">Japan</option>
+
+                              <option value="Jersey">Jersey</option>
+
+                              <option value="Jordan">Jordan</option>
+
+                              <option value="Kazakhstan">Kazakhstan</option>
+
+                              <option value="Kenya">Kenya</option>
+
+                              <option value="Kiribati">Kiribati</option>
+
+                              <option value="North Korea">North Korea</option>
+
+                              <option value="South Korea">South Korea</option>
+
+                              <option value="Kuwait">Kuwait</option>
+
+                              <option value="Kyrgyzstan">Kyrgyzstan</option>
+
+                              <option value="Laos">Laos</option>
+
+                              <option value="Latvia">Latvia</option>
+
+                              <option value="Lebanon">Lebanon</option>
+
+                              <option value="Lesotho">Lesotho</option>
+
+                              <option value="Liberia">Liberia</option>
+
+                              <option value="Libya">Libya</option>
+
+                              <option value="Liechtenstein">Liechtenstein</option>
+
+                              <option value="Lithuania">Lithuania</option>
+
+                              <option value="Luxembourg">Luxembourg</option>
+
+                              <option value="Macao">Macao</option>
+
+                              <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+
+                              <option value="Madagascar">Madagascar</option>
+
+                              <option value="Malawi">Malawi</option>
+
+                              <option value="Malaysia">Malaysia</option>
+
+                              <option value="Maldives">Maldives</option>
+
+                              <option value="Mali">Mali</option>
+
+                              <option value="Malta">Malta</option>
+
+                              <option value="Marshall Islands">Marshall Islands</option>
+
+                              <option value="Martinique">Martinique</option>
+
+                              <option value="Mauritania">Mauritania</option>
+
+                              <option value="Mauritius">Mauritius</option>
+
+                              <option value="Mayotte">Mayotte</option>
+
+                              <option value="Mexico">Mexico</option>
+
+                              <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+
+                              <option value="Moldova">Moldova</option>
+
+                              <option value="Monaco">Monaco</option>
+
+                              <option value="Mongolia">Mongolia</option>
+
+                              <option value="Montenegro">Montenegro</option>
+
+                              <option value="Montserrat">Montserrat</option>
+
+                              <option value="Morocco">Morocco</option>
+
+                              <option value="Mozambique">Mozambique</option>
+
+                              <option value="Myanmar">Myanmar</option>
+
+                              <option value="Namibia">Namibia</option>
+
+                              <option value="Nauru">Nauru</option>
+
+                              <option value="Nepal">Nepal</option>
+
+                              <option value="Netherlands">Netherlands</option>
+
+                              <option value="Netherlands Antilles">Netherlands Antilles</option>
+
+                              <option value="New Caledonia">New Caledonia</option>
+
+                              <option value="New Zealand">New Zealand</option>
+
+                              <option value="Nicaragua">Nicaragua</option>
+
+                              <option value="Niger">Niger</option>
+
+                              <option value="Nigeria">Nigeria</option>
+
+                              <option value="Niue">Niue</option>
+
+                              <option value="Norfolk Island">Norfolk Island</option>
+
+                              <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+
+                              <option value="Norway">Norway</option>
+
+                              <option value="Oman">Oman</option>
+
+                              <option value="Pakistan">Pakistan</option>
+
+                              <option value="Palau">Palau</option>
+
+                              <option value="Palestine, State of">Palestine, State of</option>
+
+                              <option value="Panama">Panama</option>
+
+                              <option value="Papua New Guinea">Papua New Guinea</option>
+
+                              <option value="Paraguay">Paraguay</option>
+
+                              <option value="Peru">Peru</option>
+
+                              <option value="Philippines">Philippines</option>
+
+                              <option value="Pitcairn">Pitcairn</option>
+
+                              <option value="Poland">Poland</option>
+
+                              <option value="Portugal">Portugal</option>
+
+                              <option value="Puerto Rico">Puerto Rico</option>
+
+                              <option value="Qatar">Qatar</option>
+
+                              <option value="Reunion">Reunion</option>
+
+                              <option value="Romania">Romania</option>
+
+                              <option value="Russia">Russia</option>
+
+                              <option value="Rwanda">Rwanda</option>
+
+                              <option value="Saint Barthelemy">Saint Barthelemy</option>
+
+                              <option value="Saint Helena">Saint Helena</option>
+
+                              <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+
+                              <option value="Saint Lucia">Saint Lucia</option>
+
+                              <option value="Saint Martin">Saint Martin</option>
+
+                              <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+
+                              <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+
+                              <option value="Samoa">Samoa</option>
+
+                              <option value="San Marino">San Marino</option>
+
+                              <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+
+                              <option value="Saudi Arabia">Saudi Arabia</option>
+
+                              <option value="Senegal">Senegal</option>
+
+                              <option value="Serbia">Serbia</option>
+
+                              <option value="Seychelles">Seychelles</option>
+
+                              <option value="Sierra Leone">Sierra Leone</option>
+
+                              <option value="Singapore">Singapore</option>
+
+                              <option value="Slovakia">Slovakia</option>
+
+                              <option value="Slovenia">Slovenia</option>
+
+                              <option value="Solomon Islands">Solomon Islands</option>
+
+                              <option value="Somalia">Somalia</option>
+
+                              <option value="South Africa">South Africa</option>
+
+                              <option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+
+                              <option value="Spain">Spain</option>
+
+                              <option value="Sri Lanka">Sri Lanka</option>
+
+                              <option value="Sudan">Sudan</option>
+
+                              <option value="Suriname">Suriname</option>
+
+                              <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+
+                              <option value="Swaziland">Swaziland</option>
+
+                              <option value="Sweden">Sweden</option>
+
+                              <option value="Switzerland">Switzerland</option>
+
+                              <option value="Syria">Syria</option>
+
+                              <option value="Taiwan">Taiwan</option>
+
+                              <option value="Tajikistan">Tajikistan</option>
+
+                              <option value="Tanzania">Tanzania</option>
+
+                              <option value="Thailand">Thailand</option>
+
+                              <option value="Timor-Leste">Timor-Leste</option>
+
+                              <option value="Togo">Togo</option>
+
+                              <option value="Tokelau">Tokelau</option>
+
+                              <option value="Tonga">Tonga</option>
+
+                              <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+
+                              <option value="Tunisia">Tunisia</option>
+
+                              <option value="Turkey">Turkey</option>
+
+                              <option value="Turkmenistan">Turkmenistan</option>
+
+                              <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+
+                              <option value="Tuvalu">Tuvalu</option>
+
+                              <option value="Uganda">Uganda</option>
+
+                              <option value="Ukraine">Ukraine</option>
+
+                              <option value="United Arab Emirates">United Arab Emirates</option>
+
+                              <option value="United Kingdom">United Kingdom</option>
+
+                              <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+
+                              <option value="Uruguay">Uruguay</option>
+
+                              <option value="Uzbekistan">Uzbekistan</option>
+
+                              <option value="Vanuatu">Vanuatu</option>
+
+                              <option value="Venezuela">Venezuela</option>
+
+                              <option value="Vietnam">Vietnam</option>
+
+                              <option value="Virgin Islands, British">Virgin Islands, British</option>
+
+                              <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+
+                              <option value="Wallis and Futuna">Wallis and Futuna</option>
+
+                              <option value="Western Sahara">Western Sahara</option>
+
+                              <option value="Yemen">Yemen</option>
+
+                              <option value="Zambia">Zambia</option>
+
+                              <option value="Zimbabwe">Zimbabwe</option>
+
+                          </select>
+
+                        <span data-control="error" data-content="country-error" class="hovertext"><span class="arrow"></span><span class="text"></span></span>
+                    </div>
+                    </div>
+                    </div>
+                        <input type="submit" value="Regístrate" id="sign-up" class="btn-group btn-group-justified colored-text">
+                      </div>
+
+
+
+
+
+                        </div>
+                      </form></div>
+
+                    </div>
+
+
+                     </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- =========================
+              PROGRESS BAR
+    ============================== -->
+
+
+
+    <div id="pb" class="jumbotron" style="display: none;">
+    <div class="container">
+            <p>
+                </p><h2>
+                    Espere un momento, por favor.
+                </h2>
+            <p></p>
+    </div>
+
+
+        <div class="container">
+            <img src="{% static 'css/Dr. Scratch_files/logo_main.png' %}">
+        </div>
+
+
+
+        <div class="container">
+
+            <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100" style="width: 99%">
+                    <span style="width: 99%">cargando...</span>
+                </div>
+            </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- =========================
+     SCRIPTS
+    ============================== -->
+    <script async="" src="{% static 'css/Dr. Scratch_files/analytics.js' %}"></script><script src="{% static 'css/Dr. Scratch_files/jquery.min.js' %}"></script>
+    <script>
+        /* PRE LOADER */
+        jQuery(window).load(function () {
+            "use strict";
+            jQuery(".status").fadeOut();
+            jQuery(".preloader").delay(1000).fadeOut("slow");
+        })
+    </script>
+    <script type="text/javascript" src="{% static 'css/Dr. Scratch_files/bootstrap-filestyle.js' %}"> </script>
+    <script src="{% static 'css/Dr. Scratch_files/smoothscroll.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/bootstrap.min.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/jquery.nav.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/ie-emulation-modes-warning.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/wow.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/nivo-lightbox.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/owl.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/jquery_main.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/progress-bar.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/googleAnalytics.js' %}"></script>
+    <script src="{% static 'css/Dr. Scratch_files/question.js' %}"></script>
+
+    <!-- GOGLE MAP -->
+    <!--
+    <script src="https:/maps.googleapis.com/maps/api/js"></script><script src="https:/maps.gstatic.com/maps-api-v3/api/js/19/5/intl/es_ALL/main.js' %}"></script>
+-->
+
+    <!-- CUSTOM JS  -->
+    <script src="{% static 'css/Dr. Scratch_files/custom.js' %}"></script>
+
+</body></html>

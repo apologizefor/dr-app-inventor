@@ -24,7 +24,7 @@ def extractJSON(path):
     os.remove(path+".json")
     return d
 
-def getNameType(key,nt_list):
+def getComponents(key,nt_list):
     nt_dict = {}    # Name, Type dict
     nt_dict['name'] = key.get('$Name')
     nt_dict['type'] = key.get('$Type')
@@ -32,16 +32,26 @@ def getNameType(key,nt_list):
     if key.get('$Components'):
         for item in key.get('$Components'):
             if item.get('$Components'):
-                getNameType(item, nt_list)
+                getComponents(item, nt_list)
             else:
                 nt_dict = {}
                 nt_dict['name'] = item.get('$Name')
                 nt_dict['type'] = item.get('$Type')
-                nt_list.append(nt_dict)
     return nt_list
+
+def getVariables(root,ns): # Obtains the variables names
+    expr = './/{' + ns + '}block[@type="global_declaration"]/{'+ns+'}field'
+    blocks = root.findall(expr)
+    for element in blocks:
+        print(element.text)
+    expr = './/{' + ns + '}block[@type="local_declaration_statement"]/{'+ns+'}field'
+    blocks = root.findall(expr)
+    for element in blocks:
+        print(element.text)
 
 def searchBadNames(nt_list):
     count = 0
+    # nt_list contains COMPONENTS names and types.
     for item in nt_list:
         n = item.get("name")
         t = item.get("type")
@@ -51,46 +61,142 @@ def searchBadNames(nt_list):
     return count
 
 def conditionalBlocks(root,ns):
-    expr = './/{' + ns['xmlns'] + '}block[@type="controls_if"]'
-    mut = '{'+ns["xmlns"]+"}"+'mutation'
+    expr = './/{' + ns + '}block[@type="controls_if"]'
+    mut = '{'+ns+"}"+'mutation'
     cond_mut = root.findall(expr + "/" + mut)
     total = len(root.findall(expr))
     else_c = 0
     elseif_c = 0
-    cond = {}
     for tag in cond_mut:
         for attrib in tag.attrib:
             if attrib == "else":
                 else_c += 1
             elif attrib == "elseif":
                 elseif_c += 1
-    return(total - else_c - elseif_c, else_c, elseif_c)
+    result = {'if':total - else_c - elseif_c,'else':else_c,'elseif':elseif_c}
+    return result
 
 def loopBlocks(root,ns):
-    wh = './/{' + ns['xmlns'] + '}block[@type="controls_while"]'
-    fRan = './/{' + ns['xmlns'] + '}block[@type="controls_forRange"]'
-    fEach = './/{' + ns['xmlns'] + '}block[@type="controls_forEach"]'
+    wh = './/{' + ns + '}block[@type="controls_while"]'
+    fRan = './/{' + ns + '}block[@type="controls_forRange"]'
+    fEach = './/{' + ns + '}block[@type="controls_forEach"]'
     while_c = len(root.findall(wh))
     fRan_c = len(root.findall(fRan))
     fEach_c = len(root.findall(fEach))
-    return(while_c, fRan_c, fEach_c)
+    result = {'while':while_c,'range': fRan_c, 'list':fEach_c}
+    return result
 
-def eventBlocks(root,ns):
-    expr = './/{' + ns['xmlns'] + '}block[@type="component_event"]'
-    return len(root.findall(expr))
+def eventBlocks(root,ns,ev_list):
+    expr = './/{'+ns+'}block[@type="component_event"]'
+    mut = '{'+ns+"}"+'mutation'
+    for element in root.findall(expr+"/"+mut):
+        if element.get("event_name") not in ev_list:
+            ev_list.append(element.get("event_name"))
+    return len(ev_list)
 
-def procBlocks(root,ns):
-    expr = './/{' + ns['xmlns'] + '}block[@type="component_method"]'
-    return len(root.findall(expr))
+def procBlocks(root,ns,pr_list,repeated):
+    expr = './/{'+ns+'}block[@type="component_method"]'
+    mut = '{'+ns+"}"+'mutation'
+    for element in root.findall(expr+"/"+mut):
+        if element.get("method_name") not in pr_list:
+            pr_list.append(element.get("method_name"))
+        else:
+            repeated = True
+    return len(pr_list),repeated
 
 def listBlocks(root,ns):
-    expr = './/{' + ns['xmlns'] + '}block'
+    expr = './/{'+ns+'}block'
     lists_c = 0
     all_blocks = root.findall(expr)
     for block in all_blocks:
         if block.get("type").split('_')[0] == "lists":
             lists_c += 1
     return lists_c
+
+def screenScore(scr):
+    if scr > 4:
+        return 3
+    elif scr >= 2:
+        return 2
+    elif scr == 1:
+        return 1
+    else:
+        return 0
+
+def namingScore(bad):
+    if bad < 0.25:
+        return 3
+    elif bad < 0.74:
+        return 2
+    elif bad < 0.9:
+        return 1
+    else:
+        return 0
+
+def conditionalScore(cond_blocks):
+    result = 0
+    if cond_blocks['if'] > 0:
+        result += 1
+    if cond_blocks['else'] > 0:
+        result += 1
+    if cond_blocks['elseif'] > 0:
+        result += 1
+    return result
+
+def eventScore(events):
+    if len(events) > 3:
+        return 3
+    elif len(events) >= 2:
+        return 2
+    elif len(events) == 1:
+        return 1
+    else:
+        return 0
+
+def loopScore(loops):
+    result = 0
+    if loops['while'] > 0:
+        result += 1
+    if loops['range'] > 0:
+        result += 1
+    if loops['list'] > 0:
+        result += 1
+    return result
+
+def procScore(procs, repeated):
+    if procs > 1 and repeated:
+        return 3
+    elif procs > 1:
+        return  2
+    elif procs == 1:
+        return  1
+    else:
+        return 0
+
+def dataPersistanceScore(root,ns):
+    mut = './/{'+ns+"}"+'mutation'
+    elem_list = []
+    for element in root.findall(mut):
+        elem_list.append(element.get("component_type"))
+
+    if "TinyWebDB" in elem_list:
+        return 3
+    elif "TinyDB" in elem_list:
+        return 2
+    elif "File" in elem_list or "FusiontablesControl" in elem_list:
+        return 1
+    else:
+        return 0
+
+def listScore(lists):
+    if lists > 2:
+        return 3
+    elif lists == 2:
+        return 2
+    elif lists == 1:
+        return 1
+    else:
+        return 0
 
 def extractData(u_name, f_name):
     f_folder = os.path.join(settings.SAVED_PROJECTS,u_name,f_name.name[:-4])
@@ -115,41 +221,41 @@ def extractData(u_name, f_name):
             n_scr += 1
 
     blocks = []
-    bl_dict = []
+    comp_dict = []
+    ev_list = []
+    proc_list = []
+    proc_rep = False
     count_blocks = 0
     conditional_count = {'if': 0, 'else': 0, 'elseif': 0}
     loop_count = {'while': 0, 'range': 0, 'list': 0}
-    event_count = 0
-    proc_count = 0
     lists_count = 0
     for n in range(0,n_scr):
         screen = scr[n]
         if scr[n]["bky"]:
             tree = ET.fromstring(scr[n]["bky"])
-            namespace = {'xmlns': tree.tag.split('}',1)[0][1:]} # Namespace of the xml http://www.w3.org/1999/xhtml
-            """ COUNT BLOCKS """
-            tag = "block"
-            expr = './/{' +namespace['xmlns'] + '}'+ tag
-            #for block in tree.findall(expr):
-            #    print(block.get("type"));
+            namespace = tree.tag.split('}',1)[0][1:] # Namespace of the xml http://www.w3.org/1999/xhtml
+            expr = './/{' +namespace + '}block'
             count_blocks += len(tree.findall(expr))
-            event_count += eventBlocks(tree,namespace)
-            if_c, else_c, elseif_c = conditionalBlocks(tree,namespace)
-            conditional_count['if'] += if_c
-            conditional_count['else'] += else_c
-            conditional_count['elseif'] += elseif_c
-            w_c, fr_c, fl_c = loopBlocks(tree,namespace)
-            loop_count['while'] += w_c
-            loop_count['range'] += fr_c
-            loop_count['list'] + fl_c
-            proc_count += procBlocks(tree,namespace)
+            event_count = eventBlocks(tree,namespace,ev_list)
+            conditional_count = conditionalBlocks(tree,namespace)
+            loop_count = loopBlocks(tree,namespace)
+            proc_count, proc_rep = procBlocks(tree,namespace,proc_list, proc_rep)
             lists_count += listBlocks(tree,namespace)
+            getVariables(tree, namespace)
         else:
             pass #print("There is empty screens")
             # n_scr-=1??
 
         scm_path = os.path.join(content_path, scr[n]["scrID"])
         d = extractJSON(scm_path)
-        bl_dict = getNameType(d.get('Properties'), bl_dict)
-    bad_names = float(searchBadNames(bl_dict))/float(len(bl_dict))
-    return (n_scr, round(bad_names,3), conditional_count, event_count, loop_count, proc_count, lists_count)
+        comp_dict = getComponents(d.get('Properties'), comp_dict)
+    bad_names = float(searchBadNames(comp_dict))/float(len(comp_dict))
+    scr_score = screenScore(n_scr)
+    naming_score = namingScore(bad_names)
+    cond_score = conditionalScore(conditional_count)
+    event_score = eventScore(ev_list)
+    loop_score = loopScore(loop_count)
+    proc_score = procScore(proc_count,proc_rep)
+    dp_score = dataPersistanceScore(tree,namespace)
+    list_score = listScore(lists_count)
+    return (scr_score, naming_score, cond_score, event_score, loop_score, proc_score, list_score, dp_score)

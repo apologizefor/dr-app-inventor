@@ -35,15 +35,12 @@ class DataModel(models.Model):
     name = models.CharField(max_length=200)
     author = models.ForeignKey('UserModel',on_delete=models.CASCADE,null=True,blank=True)
     screens = models.IntegerField()
-    naming = models.FloatField()
-    cond_if = models.IntegerField()
-    cond_else = models.IntegerField()
-    cond_elseif = models.IntegerField()
+    naming = models.IntegerField()
+    cond = models.IntegerField()
     events = models.IntegerField()
-    loop_while = models.IntegerField()
-    loop_range = models.IntegerField()
-    loop_list = models.IntegerField()
+    loop = models.IntegerField()
     proc = models.IntegerField()
+    data_pers = models.IntegerField()
     lists = models.IntegerField()
 
     def __str__(self): #python3
@@ -58,20 +55,20 @@ class DataModel(models.Model):
         self.author_id = user_id
         self.screens= data['scr']
         self.naming= data['naming']
-        self.cond_if= data['if']
-        self.cond_else = data['else']
-        self.cond_elseif = data['elseif']
+        self.cond= data['conditional']
         self.events = data['events']
-        self.loop_while = data['while']
-        self.loop_range = data['for_range']
-        self.loop_list = data['for_list']
+        self.loop = data['loop']
         self.proc = data['proc']
+        self.data_pers = data['dp']
         self.lists = data['lists']
         self.save()
 
+    def loadProject(self):
+        data = {"scr":self.screens, "naming":self.naming, 'conditional':self.cond,
+                'events':self.events, 'loop':self.loop, 'proc': self.proc,'lists':self.lists, 'dp': self.data_pers}
+        return data
+
     def loadData(self):
-        data = {"name":self.name,"scr":self.screens, "naming":self.naming, 'if':self.cond_if,
-                'else':self.cond_else, 'elseif':self.cond_elseif, 'events':self.events,
-                'while':self.loop_while, 'for_range':self.loop_range, 'for_list':self.loop_list,
-                'proc': self.proc,'lists':self.lists}
+        data = {"name":self.name,"scr":self.screens, "naming":self.naming, 'conditional':self.cond,
+                'events':self.events, 'loop':self.loop, 'proc': self.proc,'lists':self.lists, 'dp': self.data_pers}
         return data
