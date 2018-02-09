@@ -15,36 +15,36 @@
     <title>Dr. App Inventor</title>
 
 
-    <link rel="{% static 'css/Dr. Scratch_files/style.css' %}">
+    <link rel="{% static 'css/Dr.Scratch_files/style.css' %}">
     <!-- =========================
      FAV AND TOUCH ICONS AND FONT
     ============================== -->
     <link rel="icon" href="http://www.drscratch.org/static/app/images/favicon.ico">
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/icons.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr. Scratch_files/css_002.css' %}">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr. Scratch_files/css.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/icons.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr.Scratch_files/css_002.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/Dr.Scratch_files/css.css' %}">
     <!-- =========================
      STYLESHEETS
     ============================== -->
     <!-- BOOTSTRAP AND ANIMATION -->
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/bootstrap-main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/bootstrap-main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/animate.css' %}">
 
     <!-- CAROUSEL AND LIGHTBOX -->
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/owl_002.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/owl.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/nivo-lightbox.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/owl_002.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/nivo-lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/default.css' %}">
 
     <!-- CUSTOM STYLESHEETS -->
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/styles.css' %}">
 
 
     <!-- RESPONSIVE FIXES -->
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/responsive.css' %}">
 
     <!-- DEFAULT COLOR/ CURRENTLY USING -->
-    <link rel="stylesheet" href="{% static 'css/Dr. Scratch_files/red.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Dr.Scratch_files/red.css' %}">
 </head>
 
 <body>
@@ -71,7 +71,7 @@
                     <div class="navbar-collapse collapse" id="stamp-navigation">
                     <!-- NAVIGATION LINK -->
                       <a class="navbar-brand" href="/">
-                        <img src="{% static 'css/Dr. Scratch_files/logo_main.png' %}" alt="">
+                        <img src="{% static 'css/images/logo_main.png' %}" alt="">
                       </a>
                       <ul class="nav navbar-nav navbar-left main-navigation small-text">
                         <li class="navbar-brand"><a href="/#section1"><em>¿Por qué?</em></a></li>
@@ -125,18 +125,11 @@
 
                                 <h5 class="dark-text form-heading"><strong>Sube tu proyecto de App Inventor para analizarlo</strong></h5>
 
-                                <form name="form" class="project-form" enctype="multipart/form-data" method="post" action="/results/">
+                                <form name="form" class="project-form" enctype="multipart/form-data" method="post">
                                 {% csrf_token %}
-                                {{ form.aia_file }}
-
-
-                                    Descarga tu <span class="colored-text"><a data-toggle="modal" href="http://www.drscratch.org/#modalProject">proyecto</a></span> en tu ordenador y podrás analizarlo aquí:
-                                    <div class="bootstrap-filestyle input-group">
-                                      {{ form.aia_file }}
-                                      <span class="group-span-filestyle input-group-btn" tabindex="0"><label for="{{ form.aia_file.id_for_label }}" class="btn btn-default  btn-file"><span class="glyphicon glyphicon-folder-open"></span>
-                                      <span class="buttonText">Elige Proyecto</span></label></span></div>
-                                    <button id="upload" name="_upload" type="submit" class="btn btn-primary standard-button">Analiza mi proyecto</button>
-                                    <input type="hidden" name="csrfmiddlewaretoken" value="ETfgup9CaZTvTQXlZ6ppPChFCsTI9J79">
+                                Descarga tu <span class="colored-text"><a data-toggle="modal" href="http://www.drscratch.org/#modalProject">proyecto</a></span> en tu ordenador y podrás analizarlo aquí:
+                                {{form.aia_file}}
+                                <button id="upload" name="_upload" type="submit" class="btn btn-primary standard-button">Analiza mi proyecto</button>
 
                                 </form>
 
@@ -163,23 +156,23 @@
         <ul class="client-logos">
             <li>
                 <a href="http://programamos.es/">
-                <img src="{% static 'css/Dr. Scratch_files/logoProgramamos.png' %}" alt="">
+                <img src="{% static 'css/Dr.Scratch_files/logoProgramamos.png' %}" alt="">
                 </a>
             </li>
             <li>
                 <a href="http://www.urjc.es/">
-                <img src="{% static 'css/Dr. Scratch_files/logoURJC.jpg' %}" alt="">
+                <img src="{% static 'css/Dr.Scratch_files/logoURJC.jpg' %}" alt="">
                 </a>
             </li>
             <li>
                 <a href="http://libresoft.es/">
-                <img src="{% static 'css/Dr. Scratch_files/logoLibresoft.jpeg' %}" alt="">
+                <img src="{% static 'css/Dr.Scratch_files/logoLibresoft.jpeg' %}" alt="">
                 </a>
             </li>
 
             <li>
                 <a href="http://www.fecyt.es/">
-                <img src="{% static 'css/Dr. Scratch_files/logoFECYT.jpg' %}" alt="">
+                <img src="{% static 'css/Dr.Scratch_files/logoFECYT.jpg' %}" alt="">
                 </a>
             </li>
 
@@ -272,7 +265,7 @@
                 </div>
                         <div class="js-video [vimeo, widescreen]">
 
-                            <iframe src="{% static 'css/Dr. Scratch_files/114430745.html' %}" width="500" height="333" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen=""></iframe>
+                            <iframe src="{% static 'css/Dr.Scratch_files/114430745.html' %}" width="500" height="333" frameborder="0" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen=""></iframe>
                         </div>
                     </div>
                 </div>
@@ -287,7 +280,7 @@
                     </div>
                     <p class="text-left">
                         </p><p><em>Hay dos opciones para analizar un proyecto de App Inventor con Dr. App Inventor</em></p>
-                        <img src="{% static 'css/Dr. Scratch_files/proyecto.png' %}">
+                        <img src="{% static 'css/Dr.Scratch_files/proyecto.png' %}">
                     <p align="justify">
                         Puedes subir un fichero de extensión sb2 o utilizar la url que App Inventor facilita sin necesidad de bajar previamente el proyecto a tu ordenador. Mediante el análisis de Dr. App Inventor, puedes conocer fácilmente tu Nivel de Pensamiento Computacional.
                     </p>
@@ -397,7 +390,7 @@
                 <!-- DrScratch's working to improve -->
                 <div class="col-md-4">
                     <div style="visibility: hidden; animation-duration: 1.75s; animation-name: none;" class="ipad-image wow bounceIn animated" data-wow-duration="1.75s" data-wow-offset="20">
-                        <img src="{% static 'css/Dr. Scratch_files/bulb.png' %}" alt="" height="406" width="360">
+                        <img src="{% static 'css/Dr.Scratch_files/bulb.png' %}" alt="" height="406" width="360">
                     </div>
                 </div>
 
@@ -585,7 +578,7 @@
             <div class="colored-line"></div>
           </div>
           <div class="modal-body">
-            <img class="framed" src="{% static 'css/Dr. Scratch_files/url-es.png' %}">
+            <img class="framed" src="{% static 'css/Dr.Scratch_files/url-es.png' %}">
           </div>
           <div class="modal-footer">
           </div>
@@ -604,13 +597,13 @@
           <div class="modal-header">
             <button type="button" class="close text-right" data-dismiss="modal">×</button>
             <div class="small-text-medium uppercase colored-text">
-                ¡Quiero descargar mi proyecto de Scratch!
+                ¡Quiero descargar mi proyecto de App Inventor!
             </div>
-            <h4 class="modal-title"><strong>¿Cómo puedo descargar mi proyecto de Scratch a mi ordenador?</strong></h4>
+            <h4 class="modal-title"><strong>¿Cómo puedo descargar mi proyecto de App Inventor a mi ordenador?</strong></h4>
             <div class="colored-line"></div>
           </div>
           <div class="modal-body">
-            <img class="framed" src="{% static 'css/Dr. Scratch_files/project-es.png' %}">
+            <img height="282" width="445"class="framed" src="{% static 'css/Dr.Scratch_files/ai-project-es.png' %}">
           </div>
           <div class="modal-footer">
           </div>
@@ -634,7 +627,7 @@
             <div class="colored-line"></div>
           </div>
           <div class="modal-body">
-            <img class="framed" src="{% static 'css/Dr. Scratch_files/project-es.png' %}">
+            <img class="framed" src="{% static 'css/Dr.Scratch_files/project-es.png' %}">
           </div>
           <div class="modal-footer">
           </div>
@@ -663,13 +656,13 @@
                   <div class="tab-content">
                     <div class="tab-pane active" id="tab1">
 
-                      <h4 class="modal-title"><strong>Es fácil -y gratis- registrarte en Dr. Scratch</strong></h4>
+                      <h4 class="modal-title"><strong>Es fácil -y gratis- registrarte en Dr.Scratch</strong></h4>
                       <div class="colored-line"></div>
                         <div class="jumbotron">
                         <div class="container">
 
                       <div class="row">
-                          <label class="col-md-6 text-left control-label">Elige un nombre de usuario en Dr. Scratch</label>
+                          <label class="col-md-6 text-left control-label">Elige un nombre de usuario en Dr.Scratch</label>
                           <label class="col-md-2 text-left control-label">
                           <input type="text" name="username" id="username" placeholder="Nombre de usuario" class="placeholder"></label>
                       </div>
@@ -722,12 +715,12 @@
                                 <div class="panel panel-danger">
                                   <h4 class="modal-title">Cumpleaños: mes y año</h4>
                                   <h6 class="modal-title">
-                                      Usamos esta información para calcular el rango de edad de las personas que utilizan Dr. Scratch, y confirmar que tu eres el propietario de la cuenta si nos contactas. Esto no será publico.
+                                      Usamos esta información para calcular el rango de edad de las personas que utilizan Dr.Scratch, y confirmar que tu eres el propietario de la cuenta si nos contactas. Esto no será publico.
                                   </h6>
 
                                   <h4 class="modal-title">Género</h4>
                                   <h6 class="modal-title">
-                                      Sirve para ayudar al equipo de diseño de Dr. Scratch a entender quien está usando Dr. Scratch, y nos proporciona información que nos ayuda a ampliar la participación. Esta información no es visible en tu cuenta, y solo es utilizada para describir la participación.
+                                      Sirve para ayudar al equipo de diseño de Dr.Scratch a entender quien está usando Dr.Scratch, y nos proporciona información que nos ayuda a ampliar la participación. Esta información no es visible en tu cuenta, y solo es utilizada para describir la participación.
                                   </h6>
                               </div>
                           </div>
@@ -1320,7 +1313,7 @@
 
 
         <div class="container">
-            <img src="{% static 'css/Dr. Scratch_files/logo_main.png' %}">
+            <img src="{% static 'css/images/logo_main.png' %}">
         </div>
 
 
@@ -1344,7 +1337,7 @@
     <!-- =========================
      SCRIPTS
     ============================== -->
-    <script async="" src="{% static 'css/Dr. Scratch_files/analytics.js' %}"></script><script src="{% static 'css/Dr. Scratch_files/jquery.min.js' %}"></script>
+    <script async="" src="{% static 'css/Dr.Scratch_files/analytics.js' %}"></script><script src="{% static 'css/Dr.Scratch_files/jquery.min.js' %}"></script>
     <script>
         /* PRE LOADER */
         jQuery(window).load(function () {
@@ -1353,19 +1346,19 @@
             jQuery(".preloader").delay(1000).fadeOut("slow");
         })
     </script>
-    <script type="text/javascript" src="{% static 'css/Dr. Scratch_files/bootstrap-filestyle.js' %}"> </script>
-    <script src="{% static 'css/Dr. Scratch_files/smoothscroll.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/bootstrap.min.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/jquery.nav.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/ie-emulation-modes-warning.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/wow.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/nivo-lightbox.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/owl.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/jquery_main.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/jquery.ajaxchimp.min.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/progress-bar.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/googleAnalytics.js' %}"></script>
-    <script src="{% static 'css/Dr. Scratch_files/question.js' %}"></script>
+    <script type="text/javascript" src="{% static 'css/Dr.Scratch_files/bootstrap-filestyle.js' %}"> </script>
+    <script src="{% static 'css/Dr.Scratch_files/smoothscroll.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/bootstrap.min.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/jquery.nav.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/ie-emulation-modes-warning.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/wow.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/nivo-lightbox.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/owl.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/jquery_main.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/progress-bar.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/googleAnalytics.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/question.js' %}"></script>
 
     <!-- GOGLE MAP -->
     <!--
@@ -1373,6 +1366,6 @@
 -->
 
     <!-- CUSTOM JS  -->
-    <script src="{% static 'css/Dr. Scratch_files/custom.js' %}"></script>
+    <script src="{% static 'css/Dr.Scratch_files/custom.js' %}"></script>
 
 </body></html>

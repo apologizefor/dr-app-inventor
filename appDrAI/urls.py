@@ -2,8 +2,8 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.main_view,name='main'),
-    url(r'uploads/$', views.file_form_page,name='upload'),
+    url(r'^$', views.file_form_page,name='main'),
+    #url(r'uploads/$', views.file_form_page,name='upload'),
     url(r'projects/$', views.projects_views,name='projects'),
     url(r'profile/projects/(?P<pk>[0-9]+)/$', views.showResults, name='results'),
     url(r'(?P<pk>[0-9]+)/bad-naming$', views.showBN, name='bad-naming'),

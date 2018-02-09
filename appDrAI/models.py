@@ -42,6 +42,13 @@ class DataModel(models.Model):
     proc = models.IntegerField()
     data_pers = models.IntegerField()
     lists = models.IntegerField()
+    sensors = models.IntegerField()
+    media = models.IntegerField()
+    social = models.IntegerField()
+    connect = models.IntegerField()
+    draw = models.IntegerField()
+    operator = models.IntegerField()
+    ui = models.IntegerField()
 
     def __str__(self): #python3
         return self.name
@@ -61,14 +68,25 @@ class DataModel(models.Model):
         self.proc = data['proc']
         self.data_pers = data['dp']
         self.lists = data['lists']
+        self.sensors = data['sensors']
+        self.media = data['media']
+        self.social = data['social']
+        self.connect = data['connect']
+        self.draw = data['draw']
+        self.operator = data['operator']
+        self.ui = data['ui']
         self.save()
 
     def loadProject(self):
-        data = {"scr":self.screens, "naming":self.naming, 'conditional':self.cond,
-                'events':self.events, 'loop':self.loop, 'proc': self.proc,'lists':self.lists, 'dp': self.data_pers}
+        data = [{"scr":self.screens}, {"ui":self.ui}, {"naming":self.naming},{'events':self.events},
+                {'proc': self.proc},{'loop':self.loop},{'conditional':self.cond},{'lists':self.lists},
+                {'dp': self.data_pers}, {'sensors':self.sensors}, {'media':self.media},{'social':self.social},
+                {'connect': self.connect}, {'draw': self.draw},{'operator':self.operator}]
         return data
 
     def loadData(self):
-        data = {"name":self.name,"scr":self.screens, "naming":self.naming, 'conditional':self.cond,
-                'events':self.events, 'loop':self.loop, 'proc': self.proc,'lists':self.lists, 'dp': self.data_pers}
+        data = {'name':self.name, 'scr':self.screens, "ui":self.ui, 'naming':self.naming, 'conditional':self.cond,
+                'events':self.events, 'loop':self.loop, 'proc': self.proc,'lists':self.lists,
+                'dp': self.data_pers, 'sensors':self.sensors,'media':self.media,'social':self.social,
+                'connect': self.connect, 'draw': self.draw, 'operator':self.operator}
         return data

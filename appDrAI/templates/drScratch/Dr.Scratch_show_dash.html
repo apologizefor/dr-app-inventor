@@ -11,9 +11,19 @@
     <script src="{% static 'css/Dr.Scratch_show_dash_files/bootstrap.min.js' %}"></script>
     <script src="{% static 'css/Dr.Scratch_show_dash_files/bootstrap-tour.js' %}"></script>
     <script src="{% static 'css/Dr.Scratch_show_dash_files/googleAnalytics.js' %}"></script>
-
+{% if result > high %}
+    <style>h2{color: #1792A4 !important;}#dashboard .jumbotron{border-color: #A3D5D1 !important;}.panel-result{background-color: #A3D5D1}.dark-text:hover{color: #1792A4 !important}</style>
+{% elif result > medium %}
+    <style>h2{color: #FFBF00 !important;}#dashboard .jumbotron{border-color: #FFEDBE !important;}.panel-result{background-color: #FFEDBE}.dark-text:hover{color: #FFBF00 !important}</style>
+{% else %}
+    <style>h2{color: #91C470 !important;}#dashboard .jumbotron{border-color: #CCDD91 !important;}.panel-result{background-color: #CCDD91}.dark-text:hover{color: #91C470 !important}</style>
+{%endif%}
+  <style>
+  td,th{padding: 2px !important}#blackboard{position:sticky;top:-80px;}
+  div.navbar.navbar-inverse.bs-docs-nav.navbar-fixed-top.sticky-navigation{position:absolute !important;}
+  </style>
     <!-- SITE TITLE -->
-    <title>Dr. Scratch</title>
+    <title>Dr. App Inventor</title>
 
 
     <link rel="stylesheet" href="{% static 'css/Dr.Scratch_show_dash_files/style.css' %}">
@@ -112,7 +122,7 @@
             <div class="navbar-collapse collapse" id="stamp-navigation">
                     <!-- NAVIGATION LINK -->
                 <a class="navbar-brand" href="/">
-                    <img src="http://www.drscratch.org/static/app/images/logo_main.png" alt="">
+                    <img src="{% static 'css/images/logo_main.png' %}" alt="">
                 </a>
                 <ul class="nav navbar-nav navbar-right main-navigation ">
                         <li class="navbar-brand"><a class="navbar-brand pull-right" href="https://twitter.com/DrScratchTool"><span class="icon-social-twitter colored-text"></span></a></li>
@@ -132,9 +142,9 @@
                 <div class="devpanel">
                     <div class="panel panel-success" id="devpanel">
                         <div class="panel-heading" id="stepone">
-                          {%if result <= 8 %}
+                          {%if result <= medium %}
                             <img src="http://www.drscratch.org/static/app/images/ferret.png" class="img-responsive col-md-4">
-                          {%elif result <= 16%}
+                          {%elif result <= high%}
                           <img src="{% static 'css/Dr.Scratch_show_dash_files/monkey.png'%}" class="img-responsive col-md-4">
                           {%else%}
                           <img src="http://www.drscratch.org/static/app/images/cat.png" class="img-responsive col-md-4">
@@ -142,19 +152,19 @@
                             <h2 id="score" class="panel-title dark-text"><strong>Puntuación:</strong> {{result}}/{{max}}
                             <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="{% static 'css/Dr.Scratch_show_dash_files/tweet_button.02a1dca8703a0f5962a962619634825b.en.html'%}" style="position: static; visibility: visible; width: 61px; height: 20px;"></iframe></h2>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body panel-result">
                             <div class="container col-md-12">
                             <h3 class="text-left dark-text">El nivel de tu proyecto es...
-                              {%if result <= 8 %}
+                              {%if result <= medium %}
                               <strong>¡BÁSICO! </strong></h3><p class="text-left dark-text"> Estás al principio de una gran aventura. ¡Continúa así!</p>
-                              {%elif result <= 16 %}
+                              {%elif result <= high %}
                               <strong>¡MEDIO! </strong></h3><p class="text-left dark-text"> Estás haciendo un gran trabajo. ¡Sigue así!</p>
                               {%else%}
                               <strong>¡ALTO! </strong></h3><p class="text-left dark-text"> ¡¡¡Eres el master del universo!!!</p>
                               {%endif%}
 
 
-                           <a href="https://scratch.mit.edu/projects/196709703/" target="_blank"><span class="glyphicon glyphicon-hand-right"></span>Vuelve a tu proyecto Scratch</a>
+                           <!--<a href="https://scratch.mit.edu/projects/196709703/" target="_blank"><span class="glyphicon glyphicon-hand-right"></span>Vuelve a tu proyecto Scratch</a> -->
 
                             </div>
                         </div>
@@ -169,31 +179,10 @@
                         <h2 id="score" class="panel-title dark-text">Mejores prácticas</h2>
                     </div>
                     <div class="panel-body text-left typ">
-                         <a class="glyphicon glyphicon-exclamation-sign"></a><a class="dropdown" data-toggle="popover" title="" data-content="
-
-
-
-
-
-
-
-                        Sprite2(costume)
-
-
-
-
-
-
-
-                        " data-trigger="hover" href="http://www.drscratch.org/learn/attrInit" data-original-title="Atributos no inicializados correctamente"> 1 atributos no inicializados correctamente.
+                         <a class="glyphicon glyphicon-exclamation-sign"></a><a class="dropdown" data-toggle="popover" title="" data-content=""
+                         data-trigger="hover" href="/" data-original-title=""> Próximamente.
 
 </a><br>
-                        <a class="glyphicon glyphicon-pencil"> </a><a class="dropdown" data-toggle="popover" title="" data-content="
-                                    Sprite1.
-
-                                    Sprite2.
-                                   " data-trigger="hover" href="http://www.drscratch.org/learn/spriteNaming" data-original-title="Nombres inadecuados"> 2 nombres inadecuados.
-                       </a><br>
                  </div>
                 </div>
                 </div>
@@ -208,9 +197,9 @@
                             <h2 id="score" class="panel-title dark-text">Certificado del proyecto</h2>
                         </div>
                         <div class="panel-success">
-                            <h5>https://scratch.mit.edu/projects/196709703/ <form name="form" class="project-form" enctype="multipart/form-data" method="post" action="http://www.drscratch.org/download_certificate">
+                            <h5>{{project.name}}<form name="form" class="project-form" enctype="multipart/form-data" method="post" action="">
                             <input type="hidden" name="csrfmiddlewaretoken" value="ETfgup9CaZTvTQXlZ6ppPChFCsTI9J79">
-                            <button value="https://scratch.mit.edu/projects/196709703/,9/21" name="certificate" type="submit" id="certificate">Descargar</button>
+                            <button value="" name="certificate" disabled="True" type="submit" id="certificate">Descargar</button>
                           </form></h5>
                         </div>
 
@@ -238,15 +227,23 @@
                                 </thead>
                                 <tbody>
 
-{% for key, value in data.items %}
+{% for elem in data %}
+{% for key,value in elem.items %}
+
+
                                 <tr>
                                   <td>
+                                    {%if value == 3%}<img src="" alt=""><span class="glyphicon glyphicon-star" id="star"></span>
+                                    {%else%}
                                     <img src="{% static 'css/Dr.Scratch_show_dash_files/little_bulb.png'%}" alt="">
-                                    {% if key == "lists"%}LISTS{% elif key == "dp"%}DATA PERSISTANCE{% elif key == "naming"%}NAMING
-                                    {% elif key == "conditional"%}CONDITIONAL{% elif key == "proc"%}PROCEDURES{% elif key == "events"%}EVENTS
-                                    {% elif key == "loop"%}LOOP{% elif key == "scr"%}SCREENS
                                     {%endif%}
 
+                                    {% if key == "lists"%}Listas{% elif key == "dp"%}Persistencia de datos{% elif key == "naming"%}Nombres de los componentes
+                                    {% elif key == "conditional"%}Condicionales{% elif key == "proc"%}Procedimientos{% elif key == "events"%}Eventos
+                                    {% elif key == "loop"%}Bucles{% elif key == "scr"%}Pantallas{% elif key == "sensors"%}Sensores{% elif key == "media"%}Media
+                                    {% elif key == "social"%}Social{% elif key == "connect"%}Conectividad{% elif key == "draw"%}Dibujos y animaciones
+                                    {% elif key == "operator"%}Operadores{% elif key == "ui"%}Interfaz de usuario
+                                    {%endif%}
                                   </td>
                                   <td>
                                     <div class="progress">
@@ -263,14 +260,16 @@
                                           <span><strong>{{value}}/3</strong></span>
                                       </div>
                                       {%elif value == 3 %}
+
                                       <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="3" style="width: 100%">
                                           <span><strong>{{value}}/3</strong></span>
                                       </div>
                                     <div>
 
-                                       </div></div></td>
+                                    </div></div></td>
 
 {%endif%}
+{% endfor %}
 {% endfor %}
 
 

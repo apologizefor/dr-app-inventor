@@ -9,9 +9,11 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
+"""
 def main_view(request):
-    #return render(request, 'drScratch/Dr. Scratch.html',{})
+    #return render(request, 'drScratch/Dr.Scratch.html',{})
     return render(request, 'appDrAI/main.html',{})
+"""
 
 def profile_view(request):
     if request.method == "GET":
@@ -38,24 +40,25 @@ def projects_views(request):
 def file_form_page(request):
     if request.method == "GET":
         form = AiaForm()
-        #return render(request, 'drScratch/Dr. Scratch.html',{})
-        return render(request, 'appDrAI/upload.html',{'form': form})
+        return render(request, 'drScratch/Dr.Scratch.html',{'form': form})
+        #return render(request, 'appDrAI/upload.html',{'form': form})
     if request.method == "POST":
         form = AiaForm(request.POST, request.FILES)
         if form.is_valid():
             f = form.cleaned_data['aia_file']
             ext = str(f).split('.')[1]
             if ext == "aia":
-                scr, naming, cond, ev, loop, proc, lists, dp = (extractData(request.user.username,f))
+                scr, naming, cond, ev, loop, proc, lists, dp, sensors, media,social,connect,draw,op,ui = (extractData(request.user.username,f))
                 data = {"scr": scr, "naming":naming, 'conditional':cond,
                         'events':ev, 'loop':loop,'proc':proc,'lists':lists,
-                        'dp':dp}
+                        'dp':dp, 'sensors':sensors,'media':media,'social':social,
+                        'connect':connect,'draw':draw,'operator':op,'ui':ui}
                 project = DataModel()
                 project.saveData(data,f.name,request.user.id)
                 return redirect('results',pk=project.id_number)
     #return render(request, 'drScratch/Dr. Scratch.html',{})
-    return render(request, 'appDrAI/upload.html',{'form': form})
-
+    form = AiaForm()
+    return render(request, 'drScratch/Dr.Scratch.html',{'form': form})
 
 def create_user(request):
     if request.method == "GET":
@@ -70,7 +73,6 @@ def create_user(request):
             return redirect('login')
     return render(request, 'appDrAI/registration.html',{'form': form})
 
-
 def login_page(request):
     if request.method == "GET":
         form = AuthenticationForm()
@@ -81,7 +83,7 @@ def login_page(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request,user)
-            return redirect('upload')
+            return redirect('main')
         else:
             form = AuthenticationForm()
             return render(request, 'appDrAI/registration.html',{'form': form, 'error': True})
@@ -94,9 +96,10 @@ def showResults(request,pk):
     project = get_object_or_404(DataModel, pk=pk)
     data = project.loadProject()
     total = 0;
-    for key in data:
-        total += data[key]
-    context = {'data':data,'result':total,'max':len(data)*3}
+    for elem in data:
+        total += elem.values()[0]
+    max_score = len(data)*3
+    context = {'data':data,'result':total,'max':max_score,'medium':max_score/3,'high':max_score*2/3,'project':project}
     return render(request, 'drScratch/Dr.Scratch_show_dash.html',context)
 
 def showBN(request,pk):
