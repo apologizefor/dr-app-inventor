@@ -48,11 +48,8 @@ def file_form_page(request):
             f = form.cleaned_data['aia_file']
             ext = str(f).split('.')[1]
             if ext == "aia":
-                scr, naming, cond, ev, loop, proc, lists, dp, sensors, media,social,connect,draw,op,ui = (extractData(request.user.username,f))
-                data = {"scr": scr, "naming":naming, 'conditional':cond,
-                        'events':ev, 'loop':loop,'proc':proc,'lists':lists,
-                        'dp':dp, 'sensors':sensors,'media':media,'social':social,
-                        'connect':connect,'draw':draw,'operator':op,'ui':ui}
+                data = (extract_data(request.user.username,f))
+                print(data)
                 project = DataModel()
                 project.saveData(data,f.name,request.user.id)
                 return redirect('results',pk=project.id_number)

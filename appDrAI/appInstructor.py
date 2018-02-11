@@ -16,40 +16,48 @@ visual_components = ["Button", "CheckBox", "DataPicker", "Image", "Label",
             "EmailPicker", "PhoneNumberPicker"]
 """
 
-visual_components = ["Button", "CheckBox", "DataPicker", "Image", "Label",
-            "ListPicker", "ListView", "PasswordTextBox", "Slider", "Spinner",
-            "TextBox", "TimePicker", "WebViewer", "ImagePicker", "VideoPlayer",
-            "Ball", "Canvas", "ImageSprite", "Circle", "Map", "Marker",
-            "Rectangle", "LineString", "FeatureCollection", "Polygon",
-            "ContactPicker", "EmailPicker", "PhoneNumberPicker"]
+visual_components = [
+    "Button", "CheckBox", "DataPicker", "Image", "Label",
+    "ListPicker", "ListView", "PasswordTextBox", "Slider",
+    "Spinner", "TextBox", "TimePicker", "WebViewer",
+    "ImagePicker", "VideoPlayer", "Ball", "Canvas",
+    "ImageSprite", "Circle", "Map", "Marker", "Rectangle",
+    "LineString", "FeatureCollection", "Polygon",
+    "ContactPicker", "EmailPicker", "PhoneNumberPicker"
+    ]
 
-def unzipFile(z_file,folder):
+
+def unzip_file(z_file, folder):
     with zipfile.ZipFile(z_file, 'r') as z:
         if(os.path.exists(folder)):
             print("---Project already exists---")
         else:
             print("---New project created---")
-            z.extractall(folder) # Create a new folder with the project name and extract files there
+            z.extractall(folder)
+            # Create a new folder with the project name and extract files there
     return z.namelist()
 
-def visualComponents(components):
+
+def check_visual_comp(components):
     visual_list = []
     for elem in components:
         if elem['type'] in visual_components:
             visual_list.append(elem['type'])
     return visual_list
 
-def extractJSON(path):
-    with open(path+".scm",'r') as scm_data:
+
+def extract_json(path):
+    with open(path+".scm", 'r') as scm_data:
         json_data = scm_data.readlines()[2]
-    with open(path+".json",'w') as json_file:
+    with open(path+".json", 'w') as json_file:
         json_file.write(json_data)
-    with open(path+".json",'r') as json_file:
+    with open(path+".json", 'r') as json_file:
         d = json.load(json_file)
     os.remove(path+".json")
     return d
 
-def screenScore(scr,comp):
+
+def screen_score(scr, comp):
     if scr > 4:
         return 3
     elif scr >= 2:
@@ -59,14 +67,15 @@ def screenScore(scr,comp):
     else:
         return 0
 
-def getArrangement(comp,stored):
+
+def get_arrangement(comp, stored):
     if "Arrangement" in comp:
         if comp not in stored:
             stored.append(comp)
     return stored
 
-def userInterfaceScore(visual,arrang):
-    print("Arrangement",len(visual),visual,arrang)
+
+def user_interface_score(visual, arrang):
     if len(visual) >= 5 and len(arrang) > 1:
         return 3
     elif len(visual) >= 5 and len(arrang) == 1:
@@ -76,35 +85,39 @@ def userInterfaceScore(visual,arrang):
     else:
         return 0
 
-def getComponents(key,nt_list,stored):
+
+def get_components(key, nt_list, stored):
     nt_dict = {}    # Name, Type dict
     nt_dict['name'] = key.get('$Name')
     nt_dict['type'] = key.get('$Type')
-    stored = getArrangement(nt_dict['type'],stored)
+    stored = get_arrangement(nt_dict['type'], stored)
     nt_list.append(nt_dict)
     if key.get('$Components'):
         for item in key.get('$Components'):
             if item.get('$Components'):
-                getComponents(item, nt_list,stored)
+                get_components(item, nt_list, stored)
             else:
                 nt_dict = {}
                 nt_dict['name'] = item.get('$Name')
                 nt_dict['type'] = item.get('$Type')
                 nt_list.append(nt_dict)
-                stored = getArrangement(nt_dict['type'],stored)
+                stored = get_arrangement(nt_dict['type'], stored)
     return nt_list
 
-def getVariables(root,ns): # Obtains the variables names
+
+def get_variables(root, ns):     # Obtains the variables names
     expr = './/{' + ns + '}block[@type="global_declaration"]/{'+ns+'}field'
     blocks = root.findall(expr)
     for element in blocks:
-        pass #print(element.text)
-    expr = './/{' + ns + '}block[@type="local_declaration_statement"]/{'+ns+'}field'
+        pass    # print(element.text)
+    expr = './/{'+ns+'}block[@type="local_declaration_statement"]'
+    expr += '/{'+ns+'}field'
     blocks = root.findall(expr)
     for element in blocks:
-        pass #print(element.text)
+        pass    # print(element.text)
 
-def countBadNames(nt_list):
+
+def count_bad_names(nt_list):
     count = 0
     # nt_list contains COMPONENTS names and types.
     """ If there's only an empty screen this return 100%_ bad naming.
@@ -115,17 +128,12 @@ def countBadNames(nt_list):
         n = item.get("name")
         t = item.get("type")
         if len(n.split(t)) == 2 and n.split(t)[0] == "":
-            """
-            if t == "Form":
-                if n.split("Screen")[1] in str(range(2,99)): # Can't change Screen1 name
-                    count += 1
-            else:
-            """
-            if n.split(t)[1] in str(range(1,99)): # Can't change Screen1 name
+            if n.split(t)[1] in str(range(1, 99)):  # Can't change Screen1 name
                 count += 1
     return float(count)/float(len(nt_list))
 
-def namingScore(bad):
+
+def naming_score(bad):
     if bad < 0.25:
         return 3
     elif bad < 0.74:
@@ -135,7 +143,8 @@ def namingScore(bad):
     else:
         return 0
 
-def conditionalBlocks(root,ns,count):
+
+def conditional_blocks(root, ns, count):
     expr = './/{' + ns + '}block[@type="controls_if"]'
     choose = './/{' + ns + '}block[@type="controls_choose"]'
     mut = '{'+ns+"}"+'mutation'
@@ -154,7 +163,8 @@ def conditionalBlocks(root,ns,count):
     count['elseif'] += elseif_c
     return count
 
-def conditionalScore(cond_blocks):
+
+def conditional_score(cond_blocks):
     result = 0
     if cond_blocks['if'] > 0:
         result += 1
@@ -164,7 +174,8 @@ def conditionalScore(cond_blocks):
         result += 1
     return result
 
-def loopBlocks(root,ns,count):
+
+def loop_blocks(root, ns, count):
     wh = './/{' + ns + '}block[@type="controls_while"]'
     fRan = './/{' + ns + '}block[@type="controls_forRange"]'
     fEach = './/{' + ns + '}block[@type="controls_forEach"]'
@@ -173,7 +184,8 @@ def loopBlocks(root,ns,count):
     count['list'] += len(root.findall(fEach))
     return count
 
-def loopScore(loops):
+
+def loop_score(loops):
     if loops['list'] > 0:
         return 3
     elif loops['range'] > 0:
@@ -183,7 +195,8 @@ def loopScore(loops):
     else:
         return 0
 
-def eventBlocks(root,ns,ev_list):
+
+def event_blocks(root, ns, ev_list):
     expr = './/{'+ns+'}block[@type="component_event"]'
     mut = '{'+ns+"}"+'mutation'
     for element in root.findall(expr+"/"+mut):
@@ -191,7 +204,8 @@ def eventBlocks(root,ns,ev_list):
             ev_list.append(element.get("event_name"))
     return len(ev_list)
 
-def eventScore(events):
+
+def event_score(events):
     if len(events) > 3:
         return 3
     elif len(events) >= 2:
@@ -201,45 +215,43 @@ def eventScore(events):
     else:
         return 0
 
-"""
-def procBlocks(root,ns,pr_list,repeated):
-    expr = './/{'+ns+'}block[@type="component_method"]' # Component procedures
-    mut = '{'+ns+"}"+'mutation'
-    for element in root.findall(expr+"/"+mut):
-        if element.get("method_name") not in pr_list:
-            pr_list.append(element.get("method_name"))
-        else:
-            repeated = True
-    return len(pr_list),repeated
-"""
 
-def procBlocks(root,ns,nprocs,repeated):
-    result = ['.//{'+ns+'}block[@type="procedures_defreturn"]','.//{'+ns+'}block[@type="procedure_callreturn"]']
-    do = ['.//{'+ns+'}block[@type="procedures_defnoreturn"]','.//{'+ns+'}block[@type="procedures_callnoreturn"]']
+def proc_blocks(root, ns, nprocs, repeated):
+    result = [
+        './/{'+ns+'}block[@type="procedures_defreturn"]',
+        './/{'+ns+'}block[@type="procedure_callreturn"]'
+        ]
+    do = [
+        './/{'+ns+'}block[@type="procedures_defnoreturn"]',
+        './/{'+ns+'}block[@type="procedures_callnoreturn"]'
+        ]
     procs = len(root.findall(result[0])) + len(root.findall(do[0]))
     calls = len(root.findall(result[1])) + len(root.findall(do[1]))
     if calls > procs:
         repeated = True
-    return nprocs+procs,repeated
+    return nprocs+procs, repeated
 
-def procScore(procs, repeated):
+
+def proc_score(procs, repeated):
     if procs > 1 and repeated:
         return 3
     elif procs > 1:
-        return  2
+        return 2
     elif procs == 1:
-        return  1
+        return 1
     else:
         return 0
 
-def listBlocks(root,ns,uni_blocks,multi_blocks):
+
+def list_blocks(root, ns, uni_blocks, multi_blocks):
     expr = './/{'+ns+'}block[@type="lists_create_with"]'
     multi = '/{'+ns+'}value/{'+ns+'}block[@type="lists_create_with"]'
     multi_blocks += len(root.findall(expr+multi))
     uni_blocks += len(root.findall(expr))
     return uni_blocks, multi_blocks
 
-def listScore(uni,multi):
+
+def list_score(uni, multi):
     if multi != 0:
         return 3
     elif uni > 1:
@@ -249,70 +261,75 @@ def listScore(uni,multi):
     else:
         return 0
 
-def sensorBlocks(root,ns,sensors):
-    expr = './/{'+ns+'}mutation'
-    for element in root.findall(expr):
-        if element.get("component_type") == "AccelerometerSensor":
+
+def sensor_blocks(comp_dict):
+    sensors = {}
+    for element in comp_dict:
+        if element['type'] == "AccelerometerSensor":
             sensors['accel'] = True
-        if element.get("component_type") == "BarcodeScanner":
+        if element['type'] == "BarcodeScanner":
             sensors['barscan'] = True
-        if element.get("component_type") == "Clock":
+        if element['type'] == "Clock":
             sensors['clock'] = True
-        if element.get("component_type") == "GyroscopeSensor":
+        if element['type'] == "GyroscopeSensor":
             sensors['gyros'] = True
-        if element.get("component_type") == "LocationSensor":
+        if element['type'] == "LocationSensor":
             sensors['location'] = True
-        if element.get("component_type") == "NearField":
+        if element['type'] == "NearField":
             sensors['near'] = True
-        if element.get("component_type") == "OrientationSensor":
+        if element['type'] == "OrientationSensor":
             sensors['orient'] = True
-        if element.get("component_type") == "Pedometer":
+        if element['type'] == "Pedometer":
             sensors['pedometer'] = True
-        if element.get("component_type") == "ProximitySensor":
+        if element['type'] == "ProximitySensor":
             sensors['prox'] = True
 
     return sensors
 
-def mediaBlocks(root,ns,media):
-    expr = './/{'+ns+'}mutation'
-    for element in root.findall(expr):
-        if element.get("component_type") == "Camcorder":
+
+def media_blocks(comp_dict):
+    media = {}
+    for element in comp_dict:
+        if element['type'] == "Camcorder":
             media['camcord'] = True
-        elif element.get("component_type") == "Camera":
+        elif element['type'] == "Camera":
             media['cam'] = True
-        elif element.get("component_type") == "ImagePicker":
+        elif element['type'] == "ImagePicker":
             media['imgpick'] = True
-        elif element.get("component_type") == "Player":
+        elif element['type'] == "Player":
             media['player'] = True
-        elif element.get("component_type") == "Sound":
+        elif element['type'] == "Sound":
             media['sound'] = True
-        elif element.get("component_type") == "SoundRecorder":
+        elif element['type'] == "SoundRecorder":
             media['soundrec'] = True
-        elif element.get("component_type") == "SpeechRecognizer":
+        elif element['type'] == "SpeechRecognizer":
             media['sprec'] = True
-        elif element.get("component_type") == "TextToSpeech":
+        elif element['type'] == "TextToSpeech":
             media['ttspeech'] = True
-        elif element.get("component_type") == "VideoPlayer":
+        elif element['type'] == "VideoPlayer":
             media['vidplay'] = True
-        elif element.get("component_type") == "YandexTranslate":
+        elif element['type'] == "YandexTranslate":
             media['yandex'] = True
     return media
 
-def connectBlocks(root,ns,score):
-    expr = './/{'+ns+'}mutation'
-    for element in root.findall(expr):
-        if element.get("component_type") == "ActivityStarter":
+
+def connect_blocks(comp_dict):
+    score = 0
+    for element in comp_dict:
+        if element['type'] == "ActivityStarter":
             if score < 1:
                 score = 1
-        elif element.get("component_type") == "BluetoothClient" or element.get("component_type") == "BluetoothServer":
+        elif element['type'] == "BluetoothClient" \
+                or element['type'] == "BluetoothServer":
             if score < 2:
                 score = 2
-        elif element.get("component_type") == "Web":
+        elif element['type'] == "Web":
             if score < 3:
                 score = 3
     return score
 
-def nCompScore(total):
+
+def ncomp_score(total):
     if len(total) > 2:
         return 3
     elif len(total) == 2:
@@ -322,40 +339,43 @@ def nCompScore(total):
     else:
         return 0
 
-def socialBlocks(root,ns,social):
-    expr = './/{'+ns+'}mutation'
-    for element in root.findall(expr):
-        if element.get("component_type") == "ContactPicker":
+
+def social_blocks(comp_dict):
+    social = {}
+    for element in comp_dict:
+        if element['type'] == "ContactPicker":
             social['contact'] = True
-        elif element.get("component_type") == "EmailPicker":
+        elif element['type'] == "EmailPicker":
             social['email'] = True
-        elif element.get("component_type") == "PhoneCall":
+        elif element['type'] == "PhoneCall":
             social['phone'] = True
-        elif element.get("component_type") == "PhoneNumberPicker":
+        elif element['type'] == "PhoneNumberPicker":
             social['numberpick'] = True
-        elif element.get("component_type") == "Sharing":
+        elif element['type'] == "Sharing":
             social['share'] = True
-        elif element.get("component_type") == "Texting":
+        elif element['type'] == "Texting":
             social['text'] = True
-        elif element.get("component_type") == "Twitter":
+        elif element['type'] == "Twitter":
             social['twitter'] = True
     return social
 
-def drawBlocks(root,ns,score):
-    expr = './/{'+ns+'}mutation'
-    for element in root.findall(expr):
-        if element.get("component_type") == "Canvas":
+
+def draw_blocks(comp_dict):
+    score = 0
+    for element in comp_dict:
+        if element['type'] == "Canvas":
             if score < 1:
                 score = 1
-        elif element.get("component_type") == "Ball":
+        elif element['type'] == "Ball":
             if score < 2:
                 score = 2
-        elif element.get("component_type") == "ImageSprite":
+        elif element['type'] == "ImageSprite":
             if score < 3:
                 score = 3
     return score
 
-def operatorBlocks(root,ns,oplist):
+
+def operator_blocks(root, ns, oplist):
     expr = './/{'+ns+'}block'
     for block in root.findall(expr):
         block_type = block.get("type")
@@ -364,19 +384,26 @@ def operatorBlocks(root,ns,oplist):
                 oplist.append(block_type)
     return oplist
 
-def operatorScore(oplist):
+
+def operator_score(oplist):
     if len(oplist) > 2:
         return 3
     else:
         return len(oplist)
 
-def dataPersistanceBlocks(root,ns,elem_list):
-    mut = './/{'+ns+"}"+'mutation'
-    for element in root.findall(mut):
-        elem_list.append(element.get("component_type"))
-    return elem_list
 
-def dataPersistanceScore(elem_list):
+def data_persistance_blocks(comp_dict):
+    dp_list = []
+    for element in comp_dict:
+        if element['type'] == "TinyWebDB" \
+                or element['type'] == "TinyDB" \
+                or element['type'] == "File" \
+                or element['type'] == "FusiontablesControl":
+            dp_list.append(element['type'])
+    return dp_list
+
+
+def data_persistance_score(elem_list):
     if "TinyWebDB" in elem_list:
         return 3
     elif "TinyDB" in elem_list:
@@ -386,28 +413,37 @@ def dataPersistanceScore(elem_list):
     else:
         return 0
 
-def extractData(u_name, f_name):
-    f_folder = os.path.join(settings.SAVED_PROJECTS,u_name,f_name.name[:-4])
-    z_list = unzipFile(f_name,f_folder)
+
+def read_files(scr, folder, name):
+    scr_name = name[:-4]
+    with open(os.path.join(folder, name)) as bky:
+        bky_content = bky.read()
+    scm_content = extract_json(os.path.join(folder, scr_name))
+    scr.append({
+        "scrID": str(scr_name),
+        "bky": bky_content,
+        "scm": scm_content
+        })
+    return scr
+
+
+def extract_data(u_name, f_name):
+    f_folder = os.path.join(settings.SAVED_PROJECTS, u_name, f_name.name[:-4])
+    z_list = unzip_file(f_name, f_folder)
     with open(os.path.join(f_folder, z_list[-1])) as f:
         f_content = f.read().split('.')
-        ai_user_id = f_content[1]
+        ai_user = f_content[1]
         proj_id = f_content[2]
-    content_path = os.path.join(f_folder,"src","appinventor",ai_user_id,proj_id) # Screens Path
+    comb = "src/appinventor"
+    content_path = os.path.join(f_folder, comb, ai_user, proj_id)
+    # Screens Path
     list_dir = os.listdir(content_path)
-
-    n_scr = 0   # Number of screens
     scr = []    # List of screen components (ID, bky & scm)
 
     for elem in list_dir:
         scr_name, ext = elem.split('.')
         if ext == "bky":
-            with open(os.path.join(content_path,elem)) as bky:
-                bky_content = bky.read()
-            scm_content = extractJSON(os.path.join(content_path,scr_name))
-            scr.append({"scrID":str(scr_name),"bky":bky_content,"scm":scm_content})
-            n_scr += 1
-
+            scr = read_files(scr, content_path, elem)
 
     blocks = []
     comp_dict = []
@@ -416,61 +452,68 @@ def extractData(u_name, f_name):
     sensors = {}
     media = {}
     social = {}
-    connect_score = 0
-    draw_score = 0
+    score_connect = 0
+    score_draw = 0
     proc_count = 0
     proc_rep = False
     count_blocks = 0
-    conditional_count = {'if': 0, 'else': 0, 'elseif': 0}
+    cond_count = {'if': 0, 'else': 0, 'elseif': 0}
     loop_count = {'while': 0, 'range': 0, 'list': 0}
     uni_lists = 0
     multi_lists = 0
     dp_list = []
     operators_list = []
     arrangment_list = []
-    for n in range(0,n_scr):
+    for n in range(0, len(scr)):
         screen = scr[n]
         if scr[n]["bky"]:
             tree = ET.fromstring(scr[n]["bky"])
-            namespace = tree.tag.split('}',1)[0][1:] # Namespace of the xml http://www.w3.org/1999/xhtml
-            expr = './/{' +namespace + '}block'
+            nsxml = tree.tag.split('}', 1)[0][1:]
+            # Namespace of the xml http://www.w3.org/1999/xhtml
+            expr = './/{' + nsxml + '}block'
             count_blocks += len(tree.findall(expr))
-            event_count = eventBlocks(tree,namespace,ev_list)
-            conditional_count = conditionalBlocks(tree,namespace,conditional_count)
-            loop_count = loopBlocks(tree,namespace,loop_count)
-            proc_count,proc_rep = procBlocks(tree,namespace,proc_count, proc_rep)
-            sensors = sensorBlocks(tree,namespace,sensors)
-            media = mediaBlocks(tree,namespace,media)
-            social = socialBlocks(tree,namespace,social)
-            connect_score = connectBlocks(tree,namespace,connect_score)
-            draw_score = drawBlocks(tree,namespace,draw_score)
-            uni_lists,multi_lists = listBlocks(tree,namespace,uni_lists,multi_lists)
-            dp_list = dataPersistanceBlocks(tree,namespace,dp_list)
-            getVariables(tree, namespace)
-            operators_list = operatorBlocks(tree,namespace,operators_list)
+            event_count = event_blocks(tree, nsxml, ev_list)
+            cond_count = conditional_blocks(tree, nsxml, cond_count)
+            loop_count = loop_blocks(tree, nsxml, loop_count)
+            proc_count, proc_rep = proc_blocks(tree, nsxml, proc_count, proc_rep)
+            uni_lists, multi_lists = list_blocks(tree, nsxml, uni_lists, multi_lists)
+            get_variables(tree, nsxml)
+            operators_list = operator_blocks(tree, nsxml, operators_list)
         else:
-            pass #print("There is empty screens")
-            # n_scr-=1??
+            pass    # print("There is empty screens")
+            # len(scr)-=1??
 
         scm_path = os.path.join(content_path, scr[n]["scrID"])
-        d = extractJSON(scm_path)
-        comp_dict = getComponents(d.get('Properties'), comp_dict,arrangment_list)
-    visual_list = visualComponents(comp_dict)
-    bad_names = countBadNames(comp_dict)
-    scr_score = screenScore(n_scr,comp_dict)
-    naming_score = namingScore(bad_names)
-    cond_score = conditionalScore(conditional_count)
-    event_score = eventScore(ev_list)
-    loop_score = loopScore(loop_count)
-    proc_score = procScore(proc_count,proc_rep)
-    dp_score = dataPersistanceScore(dp_list)
-    list_score = listScore(uni_lists,multi_lists)
-    sensors_score = nCompScore(sensors)
-    media_score = nCompScore(media)
-    social_score = nCompScore(social)
-    op_score = operatorScore(operators_list)
-    ui_score = userInterfaceScore(visual_list,arrangment_list)
+        d = extract_json(scm_path)
+        comp_dict = get_components(d.get('Properties'), comp_dict, arrangment_list)
+    visual_list = check_visual_comp(comp_dict)
+    bad_names = count_bad_names(comp_dict)
+    score_scr = screen_score(len(scr), comp_dict)
+    score_naming = naming_score(bad_names)
+    score_cond = conditional_score(cond_count)
+    score_events = event_score(ev_list)
+    score_loop = loop_score(loop_count)
+    score_proc = proc_score(proc_count, proc_rep)
+    score_list = list_score(uni_lists, multi_lists)
+    sensors = sensor_blocks(comp_dict)
+    score_sensors = ncomp_score(sensors)
+    media = media_blocks(comp_dict)
+    score_media = ncomp_score(media)
+    social = social_blocks(comp_dict)
+    score_social = ncomp_score(social)
+    score_connect = connect_blocks(comp_dict)
+    score_draw = draw_blocks(comp_dict)
+    dp_list = data_persistance_blocks(comp_dict)
+    score_dp = data_persistance_score(dp_list)
+    score_op = operator_score(operators_list)
+    score_ui = user_interface_score(visual_list, arrangment_list)
 
-    return (scr_score, naming_score, cond_score, event_score, loop_score, proc_score,
-            list_score, dp_score, sensors_score, media_score,social_score,connect_score,
-            draw_score, op_score,ui_score)
+    score = {
+        'scr': score_scr, 'naming': score_naming, 'conditional': score_cond,
+        'events': score_events, 'loop': score_loop, 'proc': score_proc,
+        'lists': score_list, 'dp': score_dp, 'sensors': score_sensors,
+        'media': score_media, 'social': score_social, 'connect': score_connect,
+        'draw': score_draw, 'operator': score_op, 'ui': score_ui
+        }
+
+    return score
