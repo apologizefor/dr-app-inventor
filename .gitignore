@@ -2,7 +2,6 @@
 /appDrAi/__pycache__
 /appDrAi/*.csv
 /appDrAi/.ipynb_checkpoints
-/appDrAi/data_analysis.py
 /appDrAi/first_look.ipynb
 db.sqlite3
 pip-selfcheck.json
